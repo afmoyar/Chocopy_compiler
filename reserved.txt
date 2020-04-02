@@ -36,3 +36,6 @@ raise
 try
 with
 yield
+__init__
+self
+str
