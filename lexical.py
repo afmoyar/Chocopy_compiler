@@ -106,7 +106,7 @@ def dt(state,char):
             return 31
 
         elif(char == '"'):
-          print("could be a string")
+          #print("could be a string")
           #could be a string
           return 33
 
@@ -185,14 +185,14 @@ def dt(state,char):
 
     elif (state == 33):
          if (char == '"'):
-             print("end of string")
+             #print("end of string")
              return 34
 
          elif char=="\n":
-             print("string not complited, missing final comilla ")
+             #print("string not complited, missing final comilla ")
              return -1
          else:
-             print("is a valid string character, keep in state 33")
+             #print("is a valid string character, keep in state 33")
              return 33 #is a valid string character, keep in state 33
 
     elif (state == 35): #comment
@@ -253,16 +253,18 @@ with open(sys.argv[1]) as file:
         i = 0
         line = line + "\n" #used for eof checks
         while i < len(line):
-            print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
+            #print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
             if state == 1:
                col = i + 1
             #print(state,'->')
             lexeme += line[i]
             prev_state=state
             state = dt(state, line[i])
-            if((state==36 and str(tokens[-1].token).strip("[]").replace("'", "") !="tk_ident") or (state==39 and prev_state!=38)) and (i!=0 ): #spaces and \t only matter if they are at the begining of line
-                state =1
-            print("new state: "+str(state))
+            #spaces and \t only matter if they are at the begining of line
+            if len(tokens) != 0:
+                if((state==36 and str(tokens[-1].token).strip("[]").replace("'", "") !="tk_ident") or (state==39 and prev_state!=38)) and (i!=0 ): 
+                    state =1
+            #print("new state: "+str(state))
             #print(state)
             if state == -1:
                 #print("Lexical error on line: "+str(row)+" position: "+str(col))
@@ -298,8 +300,6 @@ with open(sys.argv[1]) as file:
                      #lexeme = lexeme[:-1]
                      token = "id" #Identifier
                      add_token(token, lexeme, row, col)
-
-            
                else:
                    token = valid_states[state]
                    lexeme = ""
