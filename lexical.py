@@ -1,5 +1,5 @@
 import re
-
+import sys
 #print("Hello World")
 tokens = []
 
@@ -238,7 +238,7 @@ def add_token(token, lexeme, row,col):
 ###main
 row = 0
 
-with open('test.txt') as file:
+with open(sys.argv[1]) as file:
     for line in file:
         row = row + 1
         col = 0
