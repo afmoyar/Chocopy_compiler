@@ -238,6 +238,26 @@ def add_token(token, lexeme, row,col):
     token = Token(token, lexeme, row, col)
     tokens.append(token)
 
+def line_full_of_idents():
+    if len(tokens)==0 or type(tokens[-1])==type("str"):
+        return False
+    full_of_idents=True
+    last_row=tokens[-1].row
+    #print("last row: "+str(last_row))
+    for token in reversed(tokens):
+        if token.row!=last_row:
+            return full_of_idents
+        else:
+            if str(token.token).strip("[]").replace("'", "") !="tk_ident":
+                return False
+    return full_of_idents
+
+def delete_line():
+    last_row=tokens[-1].row
+    for token in reversed(tokens):
+        if token.row==last_row:
+            tokens.remove(token)
+        
 #line = 'class Animal(object):'
 
 
@@ -245,6 +265,7 @@ def add_token(token, lexeme, row,col):
 row = 0
 
 with open(sys.argv[1]) as file:
+    error = False
     for line in file:
         row = row + 1
         col = 0
@@ -269,6 +290,7 @@ with open(sys.argv[1]) as file:
             if state == -1:
                 #print("Lexical error on line: "+str(row)+" position: "+str(col))
                 tokens.append("Lexical error on line: "+str(row)+" position: "+str(col))
+                error=True
                 #exit()
 
             if(state in valid_states):
@@ -311,8 +333,11 @@ with open(sys.argv[1]) as file:
                 lexeme = lexeme[:-1]
                 state = 1
             i = i+1
-
-
+        if error:
+            break
+        if line_full_of_idents():
+            delete_line()
+            
 for i in range(len(tokens)):
     try:
         if(tokens[i].lexeme == ""):
