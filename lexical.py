@@ -113,7 +113,6 @@ def dt(state,char):
             return 35
         
         elif(char == " "):
-            print("s: 1, char:' '")
             return 36
 
         elif(char == '\t'):
@@ -198,26 +197,20 @@ def dt(state,char):
              return 35 #is part of the comment, keep in state 35
     elif state == 36:
         if char == " ": # 2 space
-            print("s: 36, char:' '")
             return 37
         else: 
-            print("s: 36, char:not' '")
             return 40 #just 1 space and something else, needs to do i = i-1
         
     elif state == 37:
         if char == " ":# 3 space
-            print("s: 37, char:' '") 
             return 38
         else: 
-            print("s: 37, char:not' '") 
             return 40 #just 1 space and something else, needs to do i = i-1
     
     elif state == 38:
         if char == " ": # 4 space
-            print("s: 38, char:' '")
             return 39
         else: 
-            print("s: 37, char:not' '") 
             return 40 #just 1 space and something else, needs to do i = i-1
     elif state ==40: #was checking for ident but there wasnt enough spaces
         return 1                
@@ -254,13 +247,16 @@ with open('test.txt') as file:
         i = 0
         line = line + "\n" #used for eof checks
         while i < len(line):
-            print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
+            #print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
             if state == 1:
                col = i + 1
             #print(state,'->')
             lexeme += line[i]
+            prev_state=state
             state = dt(state, line[i])
-            print("new state: "+str(state))
+            if((state==36 and str(tokens[-1].token).strip("[]").replace("'", "") !="tk_ident") or (state==39 and prev_state!=38)) and (i!=0 ): #spaces and \t only matter if they are at the begining of line
+                state =1
+            #print("new state: "+str(state))
             #print(state)
             if state == -1:
                 #print("Lexical error on line: "+str(row)+" position: "+str(col))
