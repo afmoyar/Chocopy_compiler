@@ -264,7 +264,7 @@ def delete_line():
 ###main
 row = 0
 
-with open(sys.argv[1]) as file:
+with open(sys.argv[1], encoding="utf-8", errors="surrogateescape") as file: #Also works with "ignore" but the printed characters are different
     error = False
     for line in file:
         row = row + 1
