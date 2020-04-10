@@ -1,5 +1,5 @@
 import re
-
+import sys
 #print("Hello World")
 tokens = []
 
@@ -34,14 +34,15 @@ valid_states = {
    30 : ["tk_division"],     # //
    32 : ["tk_entero"],       #
    34 : ["tk_cadena"],       # "bla"
-   14 : [""]
+   14 : [""],
+   39: ["tk_ident"]          # \t o 8 espacios
 
 }
 
 def dt(state,char):
     #print(char)
     if(state == 1):
-        if(char == "\n" or char == " " or char == "\t"):
+        if(char == "\n"):
            return 1
 
         elif(char == '+'):
@@ -105,12 +106,18 @@ def dt(state,char):
             return 31
 
         elif(char == '"'):
+          #print("could be a string")
           #could be a string
           return 33
 
         elif(char == '#'):
             return 35
+        
+        elif(char == " "):
+            return 36
 
+        elif(char == '\t'):
+            return 39
         else:
             return -1
 
@@ -178,9 +185,14 @@ def dt(state,char):
 
     elif (state == 33):
          if (char == '"'):
+             #print("end of string")
              return 34
 
+         elif char=="\n":
+             #print("string not complited, missing final comilla ")
+             return -1
          else:
+             #print("is a valid string character, keep in state 33")
              return 33 #is a valid string character, keep in state 33
 
     elif (state == 35): #comment
@@ -189,7 +201,25 @@ def dt(state,char):
 
          else:
              return 35 #is part of the comment, keep in state 35
-
+    elif state == 36:
+        if char == " ": # 2 space
+            return 37
+        else: 
+            return 40 #just 1 space and something else, needs to do i = i-1
+        
+    elif state == 37:
+        if char == " ":# 3 space
+            return 38
+        else: 
+            return 40 #just 1 space and something else, needs to do i = i-1
+    
+    elif state == 38:
+        if char == " ": # 4 space
+            return 39
+        else: 
+            return 40 #just 1 space and something else, needs to do i = i-1
+    elif state ==40: #was checking for ident but there wasnt enough spaces
+        return 1                
     else:
         return -1
 
@@ -208,13 +238,34 @@ def add_token(token, lexeme, row,col):
     token = Token(token, lexeme, row, col)
     tokens.append(token)
 
+def line_full_of_idents():
+    if len(tokens)==0 or type(tokens[-1])==type("str"):
+        return False
+    full_of_idents=True
+    last_row=tokens[-1].row
+    #print("last row: "+str(last_row))
+    for token in reversed(tokens):
+        if token.row!=last_row:
+            return full_of_idents
+        else:
+            if str(token.token).strip("[]").replace("'", "") !="tk_ident":
+                return False
+    return full_of_idents
+
+def delete_line():
+    last_row=tokens[-1].row
+    for token in reversed(tokens):
+        if token.row==last_row:
+            tokens.remove(token)
+        
 #line = 'class Animal(object):'
 
 
 ###main
 row = 0
 
-with open('test.txt') as file:
+with open(sys.argv[1]) as file:
+    error = False
     for line in file:
         row = row + 1
         col = 0
@@ -223,21 +274,28 @@ with open('test.txt') as file:
         i = 0
         line = line + "\n" #used for eof checks
         while i < len(line):
+            #print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
             if state == 1:
                col = i + 1
-
             #print(state,'->')
             lexeme += line[i]
+            prev_state=state
             state = dt(state, line[i])
+            #spaces and \t only matter if they are at the begining of line
+            if len(tokens) != 0:
+                if((state==36 and str(tokens[-1].token).strip("[]").replace("'", "") !="tk_ident") or (state==39 and prev_state!=38)) and (i!=0 ): 
+                    state =1
+            #print("new state: "+str(state))
             #print(state)
             if state == -1:
                 #print("Lexical error on line: "+str(row)+" position: "+str(col))
                 tokens.append("Lexical error on line: "+str(row)+" position: "+str(col))
+                error=True
                 #exit()
 
             if(state in valid_states):
                #if(state == 14 or state == 16 or state == 19 or state == 22 or state == 99 or state == 28 or state == 30
-               #  or state == 31):
+               #  or state == 31 or state==39):
                # check 28 and 30
                if(state == 14 or state == 17 or state == 20 or state == 23 or state == 26  or state == 32):
                    #Return 1 character back
@@ -264,17 +322,22 @@ with open('test.txt') as file:
                      #lexeme = lexeme[:-1]
                      token = "id" #Identifier
                      add_token(token, lexeme, row, col)
-
                else:
                    token = valid_states[state]
                    lexeme = ""
                    add_token(token, lexeme, row, col)
-
                state = 1
                lexeme = ""
+            elif state == 40:
+                i = i-1
+                lexeme = lexeme[:-1]
+                state = 1
             i = i+1
-
-
+        if error:
+            break
+        if line_full_of_idents():
+            delete_line()
+            
 for i in range(len(tokens)):
     try:
         if(tokens[i].lexeme == ""):
