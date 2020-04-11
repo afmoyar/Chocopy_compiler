@@ -112,7 +112,7 @@ def dt(state,char):
 
         elif(char == '#'):
             return 35
-        
+
         elif(char == " "):
             return 36
 
@@ -189,8 +189,13 @@ def dt(state,char):
              return 34
 
          elif char=="\n":
-             #print("string not complited, missing final comilla ")
+             #print("string not completed, missing final quote ")
              return -1
+
+         elif not(ord(char) >= 32 and ord(char) <= 126):
+             #Is not a valid ASCII character
+             return -1
+
          else:
              #print("is a valid string character, keep in state 33")
              return 33 #is a valid string character, keep in state 33
@@ -204,22 +209,22 @@ def dt(state,char):
     elif state == 36:
         if char == " ": # 2 space
             return 37
-        else: 
+        else:
             return 40 #just 1 space and something else, needs to do i = i-1
-        
+
     elif state == 37:
         if char == " ":# 3 space
             return 38
-        else: 
+        else:
             return 40 #just 1 space and something else, needs to do i = i-1
-    
+
     elif state == 38:
         if char == " ": # 4 space
             return 39
-        else: 
+        else:
             return 40 #just 1 space and something else, needs to do i = i-1
     elif state ==40: #was checking for ident but there wasnt enough spaces
-        return 1                
+        return 1
     else:
         return -1
 
@@ -257,7 +262,7 @@ def delete_line():
     for token in reversed(tokens):
         if token.row==last_row:
             tokens.remove(token)
-        
+
 #line = 'class Animal(object):'
 
 
@@ -283,7 +288,7 @@ with open(sys.argv[1], encoding="utf-8", errors="surrogateescape") as file: #Als
             state = dt(state, line[i])
             #spaces and \t only matter if they are at the begining of line
             if len(tokens) != 0:
-                if((state==36 and str(tokens[-1].token).strip("[]").replace("'", "") !="tk_ident") or (state==39 and prev_state!=38)) and (i!=0 ): 
+                if((state==36 and str(tokens[-1].token).strip("[]").replace("'", "") !="tk_ident") or (state==39 and prev_state!=38)) and (i!=0 ):
                     state =1
             #print("new state: "+str(state))
             #print(state)
@@ -337,7 +342,7 @@ with open(sys.argv[1], encoding="utf-8", errors="surrogateescape") as file: #Als
             break
         if line_full_of_idents():
             delete_line()
-            
+
 for i in range(len(tokens)):
     try:
         if(tokens[i].lexeme == ""):
