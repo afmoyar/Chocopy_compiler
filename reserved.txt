@@ -39,3 +39,4 @@ yield
 __init__
 self
 str
+len
