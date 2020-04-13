@@ -4,7 +4,6 @@ import sys
 # print("Hello World")
 tokens = []
 
-
 class Token:
     def __init__(self, token, lexeme, row, col):
         self.token = token
@@ -44,6 +43,7 @@ valid_states = {
 
 def dt(state, char):
     # print(char)
+    global in_str
     if (state == 1):
         if (char == "\n"):
             return 1
@@ -193,12 +193,13 @@ def dt(state, char):
             return 34
 
         elif char == "\n":
+            in_str = in_str - 1
             # print("string not completed, missing final quote ")
-            return -1
+            return -2
 
         elif not (ord(char) >= 32 and ord(char) <= 126):
             # Is not a valid ASCII character
-            return -1
+            return -2
         elif char == '\\':
             return 41
 
@@ -232,10 +233,11 @@ def dt(state, char):
     elif state == 40:  # was checking for ident but there wasnt enough spaces
         return 1
     elif state ==41:
+        in_str = in_str - 1
         if(char == "\\" or char == '"' or char == "n" or char == "t"):
             return 33
         else:
-            return -1
+            return -2
 
     else:
         return -1
@@ -300,10 +302,13 @@ with open(sys.argv[1], encoding="utf-8",
             # print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
             if state == 1:
                 col = i + 1
-            # print(state,'->')
+                in_str = 0
+            #print(state,'->')
             lexeme += line[i]
             prev_state = state
             state = dt(state, line[i])
+            if(state == 33 or state == 41):
+               in_str = in_str + 1
             # spaces and \t only matter if they are at the begining of line
             if len(tokens) != 0:
                 if ((state == 36 and str(tokens[-1].token).strip("[]").replace("'", "") != "tk_ident") or (
@@ -314,6 +319,12 @@ with open(sys.argv[1], encoding="utf-8",
             if state == -1:
                 # print("Lexical error on line: "+str(row)+" position: "+str(col))
                 tokens.append("Lexical error on line: " + str(row) + " position: " + str(col))
+                error = True
+                # exit()
+
+            if state == -2:
+                # print("Lexical error on line: "+str(row)+" position: "+str(col))
+                tokens.append("Lexical error on line: " + str(row) + " position: " + str(col + in_str))
                 error = True
                 # exit()
 
@@ -357,6 +368,7 @@ with open(sys.argv[1], encoding="utf-8",
                 lexeme = lexeme[:-1]
                 state = 1
             i = i + 1
+            #print(error)
         if error:
             break
         if line_full_of_idents():
