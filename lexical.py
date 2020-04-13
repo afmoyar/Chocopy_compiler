@@ -300,7 +300,7 @@ with open(sys.argv[1], encoding="utf-8",
             # print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
             if state == 1:
                 col = i + 1
-                in_str = 1
+                in_str = 0
             if state == 33 :
                 in_str = in_str + 1
             if state == 41 :
@@ -324,7 +324,7 @@ with open(sys.argv[1], encoding="utf-8",
 
             if state == -2:
                 # print("Lexical error on line: "+str(row)+" position: "+str(col))
-                tokens.append("Lexical error on line: " + str(row) + " position: " + str(in_str))
+                tokens.append("Lexical error on line: " + str(row) + " position: " + str(col + in_str))
                 error = True
                 # exit()
 
