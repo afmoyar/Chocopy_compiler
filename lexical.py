@@ -301,8 +301,10 @@ with open(sys.argv[1], encoding="utf-8",
             if state == 1:
                 col = i + 1
                 in_str = 1
-            if state == 33 or state == 41:
+            if state == 33 :
                 in_str = in_str + 1
+            if state == 41 :
+                in_str = in_str - 1
             # print(state,'->')
             lexeme += line[i]
             prev_state = state
