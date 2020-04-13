@@ -232,7 +232,7 @@ def dt(state, char):
     elif state == 40:  # was checking for ident but there wasnt enough spaces
         return 1
     elif state ==41:
-        if(char == "\\" or char == '"'):
+        if(char == "\\" or char == '"' or char == "n" or char == "t"):
             return 33
         else:
             return -1
