@@ -194,11 +194,11 @@ def dt(state, char):
 
         elif char == "\n":
             # print("string not completed, missing final quote ")
-            return -1
+            return -2
 
         elif not (ord(char) >= 32 and ord(char) <= 126):
             # Is not a valid ASCII character
-            return -1
+            return -2
         elif char == '\\':
             return 41
 
@@ -235,7 +235,7 @@ def dt(state, char):
         if(char == "\\" or char == '"' or char == "n" or char == "t"):
             return 33
         else:
-            return -1
+            return -2
 
     else:
         return -1
@@ -300,6 +300,9 @@ with open(sys.argv[1], encoding="utf-8",
             # print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
             if state == 1:
                 col = i + 1
+                in_str = 0
+            if state == 33 :
+                in_str = in_str + 1
             # print(state,'->')
             lexeme += line[i]
             prev_state = state
@@ -314,6 +317,12 @@ with open(sys.argv[1], encoding="utf-8",
             if state == -1:
                 # print("Lexical error on line: "+str(row)+" position: "+str(col))
                 tokens.append("Lexical error on line: " + str(row) + " position: " + str(col))
+                error = True
+                # exit()
+
+            if state == -2:
+                # print("Lexical error on line: "+str(row)+" position: "+str(col))
+                tokens.append("Lexical error on line: " + str(row) + " position: " + str(in_str))
                 error = True
                 # exit()
 
