@@ -4,7 +4,6 @@ import sys
 # print("Hello World")
 tokens = []
 
-
 class Token:
     def __init__(self, token, lexeme, row, col):
         self.token = token
@@ -44,6 +43,7 @@ valid_states = {
 
 def dt(state, char):
     # print(char)
+    global in_str
     if (state == 1):
         if (char == "\n"):
             return 1
@@ -193,6 +193,7 @@ def dt(state, char):
             return 34
 
         elif char == "\n":
+            in_str = in_str - 1
             # print("string not completed, missing final quote ")
             return -2
 
@@ -232,6 +233,7 @@ def dt(state, char):
     elif state == 40:  # was checking for ident but there wasnt enough spaces
         return 1
     elif state ==41:
+        in_str = in_str - 1
         if(char == "\\" or char == '"' or char == "n" or char == "t"):
             return 33
         else:
@@ -301,14 +303,12 @@ with open(sys.argv[1], encoding="utf-8",
             if state == 1:
                 col = i + 1
                 in_str = 0
-            if state == 33 :
-                in_str = in_str + 1
-            if state == 41 :
-                in_str = in_str - 1
-            # print(state,'->')
+            #print(state,'->')
             lexeme += line[i]
             prev_state = state
             state = dt(state, line[i])
+            if(state == 33 or state == 41):
+               in_str = in_str + 1
             # spaces and \t only matter if they are at the begining of line
             if len(tokens) != 0:
                 if ((state == 36 and str(tokens[-1].token).strip("[]").replace("'", "") != "tk_ident") or (
@@ -368,6 +368,7 @@ with open(sys.argv[1], encoding="utf-8",
                 lexeme = lexeme[:-1]
                 state = 1
             i = i + 1
+            #print(error)
         if error:
             break
         if line_full_of_idents():
