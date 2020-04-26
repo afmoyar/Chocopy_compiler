@@ -1,15 +1,9 @@
 import re
 import sys
-
+from token_class import Token
+import pickle
 # print("Hello World")
 tokens = []
-
-class Token:
-    def __init__(self, token, lexeme, row, col):
-        self.token = token
-        self.lexeme = lexeme
-        self.row = row
-        self.col = col
 
 
 valid_states = {
@@ -385,4 +379,10 @@ for i in range(len(tokens)):
     except:
         # print the lexical error
         print(tokens[i])
+        with open('token.list', 'wb') as token_file:
+            pickle.dump(tokens, token_file)
         exit()
+
+with open('token.list', 'wb') as token_file:
+ 
+  pickle.dump(tokens, token_file)
