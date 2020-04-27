@@ -50,7 +50,7 @@ epsilon = "epsilon"
 #the grammar is stored in a dict, each key is a non terminal, 
 # and each list value represents rules for that non terminal
 
-grammar = {
+chocoGrammar = {
     program: 
     [
         [def_a, super_stmt]
@@ -260,5 +260,51 @@ grammar = {
         [ID],
         [member_expr],
         [index_expr],
+    ]
+}
+
+#test grammar
+test_grammar ={
+    "A":
+    [
+        ["B","C"],["ant", "A" ,"all"]
+    ],
+    "B":
+    [
+        ["big","C"],["bus","A","boss"],[epsilon]
+    ],
+    "C":
+    [
+        ["cat"],["cow"]
+    ]
+}
+
+test_grammar_2 ={
+    "A":
+    [
+        ["B","C"],["bad"]
+    ],
+    "B":
+    [
+        ["big","C","boss"],[epsilon]
+    ],
+    "C":
+    [
+        ["cat"],["cow"]
+    ]
+}
+
+test_grammar_3 ={
+    "A":
+    [
+        ["B","C"],["bad"]
+    ],
+    "B":
+    [
+        ["big","C","boss"],["bet"]
+    ],
+    "C":
+    [
+        ["cat"],["cow"]
     ]
 }

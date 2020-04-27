@@ -1,5 +1,5 @@
 #import grammar made in grammar.py
-#from grammar import grammar
+from grammar import test_grammar as grammar
 
 #obtaining the list of tokens from the lexical analyser
 import pickle
@@ -53,21 +53,7 @@ def get_first(alpha):
     first = get_first_rec(alpha,first)
     return first
 
-#test grammar
-grammar ={
-    "A":
-    [
-        ["B","C"],["ant", "A" ,"all"]
-    ],
-    "B":
-    [
-        ["big","C"],["bus","A","boss"],[epsilon]
-    ],
-    "C":
-    [
-        ["cat"],["cow"]
-    ]
-}
+
 
 first_a = get_first(["A"])
 first_b = get_first(["B"])
