@@ -17,7 +17,7 @@ def is_terminal(symbol):
 
 #alpha is a list containing a list of terminasl or non terminal, something like a1a2a3.....an is [a1,a2,...,an]
 #where ai could be terminasl or non terminal
-def get_first(alpha,first):
+def get_first_rec(alpha,first):
     print("alpha", alpha)
     print("first", first)
     if(alpha==[epsilon]):
@@ -34,37 +34,45 @@ def get_first(alpha,first):
         elif (len(alpha)==1): # string of type a1 where a1 is nonterminal
             print("string of type a1 where a1 is nonterminal")
             for rule in grammar[a_1]:
-                get_first(rule,first)
+               first = get_first_rec(rule,first)
             return first
         else: #string of type a1a2a3.....an, n>1 where a1 is nonterminal
             print("string of type a1a2a3.....an, n>1 where a1 is nonterminal")
             #add first(a1) - {epislon} to first(alpha)
-            first_of_a1=get_first([a_1],first)
+            first_of_a1=get_first_rec([a_1],first)
             first = first.union(first_of_a1)
             first.discard(epsilon)
             if(epsilon in first_of_a1): #if epsilong belongs to first(a1)
                 print("if epsilong belongs to first(a1)")
                 #add first(a2a3....an)  to first(alpha)
-                first.add(get_first(alpha[1:],first))
+                first.union(get_first_rec(alpha[1:],first))
+            return first
             
-
+def get_first(alpha):
+    first = set()
+    first = get_first_rec(alpha,first)
+    return first
 
 #test grammar
 grammar ={
     "A":
     [
-        ["B","C"],["bad"]
+        ["B","C"],["ant", "A" ,"all"]
     ],
     "B":
     [
-        ["big","C","boss"],["bet"]
+        ["big","C"],["bus","A","boss"],[epsilon]
     ],
     "C":
     [
         ["cat"],["cow"]
     ]
 }
-first= set()
-first = get_first(["C"],first)
+
+first_a = get_first(["A"])
+first_b = get_first(["B"])
+first_c = get_first(["C"])
 print("----------------------------------------------------")
-print(first)
+print("first(A)", first_a)
+print("first(B)", first_b)
+print("first(C)", first_c)
