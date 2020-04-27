@@ -44,6 +44,9 @@ bin_op = "bin_op"
 cexpr_hat = "cexpr_hat"
 cexpr_hat_2 = "cexpr_hat_2"
 
+#the grammar is stored in a dict, each key is a non terminal, 
+# and each list value represents rules for that non terminal
+
 grammar = {
     program: 
     [
