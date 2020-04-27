@@ -264,21 +264,20 @@ chocoGrammar = {
 }
 
 #test grammar
-test_grammar ={
+test_grammar_1 ={
     "A":
     [
-        ["B","C"],["ant", "A" ,"all"]
+        ["B","C"],["bad"]
     ],
     "B":
     [
-        ["big","C"],["bus","A","boss"],[epsilon]
+        ["big","C","boss"],["bet"]
     ],
     "C":
     [
         ["cat"],["cow"]
     ]
 }
-
 test_grammar_2 ={
     "A":
     [
@@ -293,18 +292,40 @@ test_grammar_2 ={
         ["cat"],["cow"]
     ]
 }
-
 test_grammar_3 ={
     "A":
     [
-        ["B","C"],["bad"]
+        ["B","C"],["ant", "A" ,"all"]
     ],
     "B":
     [
-        ["big","C","boss"],["bet"]
+        ["big","C"],["bus","A","boss"],[epsilon]
     ],
     "C":
     [
         ["cat"],["cow"]
+    ]
+}
+
+test_grammar_4 ={
+    "S":
+    [
+        ["A","uno","B","C"],["S","dos"]
+    ],
+    "A":
+    [
+        ["B","C","D"],["A","tres"],[epsilon]
+    ],
+    "B":
+    [
+        ["D","cuatro","C","tres"],[epsilon]
+    ],
+    "C":
+    [
+        ["cinco","D","B"],[epsilon]
+    ],
+    "D":
+    [
+        ["seis"],[epsilon]
     ]
 }

@@ -1,5 +1,5 @@
 #import grammar made in grammar.py
-from grammar import test_grammar as grammar
+from grammar import test_grammar_3 as grammar
 
 #obtaining the list of tokens from the lexical analyser
 import pickle
@@ -15,11 +15,14 @@ def is_terminal(symbol):
     else:
         return True
 
+#firsts dict will store first(X) for every X non terminal
+firsts = dict()
 #alpha is a list containing a list of terminasl or non terminal, something like a1a2a3.....an is [a1,a2,...,an]
 #where ai could be terminasl or non terminal
 def get_first_rec(alpha,first):
     print("alpha", alpha)
     print("first", first)
+    print("all first so far:",firsts)
     if(alpha==[epsilon]):
         print("alpha is [epsilon]")
         first.add(epsilon)
@@ -33,13 +36,20 @@ def get_first_rec(alpha,first):
             return first
         elif (len(alpha)==1): # string of type a1 where a1 is nonterminal
             print("string of type a1 where a1 is nonterminal")
-            for rule in grammar[a_1]:
-               first = get_first_rec(rule,first)
-            return first
+            if a_1 in firsts:
+                return firsts[a_1]
+            else:
+                for rule in grammar[a_1]:
+                    first = get_first_rec(rule,first)
+                return first
         else: #string of type a1a2a3.....an, n>1 where a1 is nonterminal
             print("string of type a1a2a3.....an, n>1 where a1 is nonterminal")
             #add first(a1) - {epislon} to first(alpha)
-            first_of_a1=get_first_rec([a_1],first)
+            if a_1 not in firsts:
+                first_of_a1=get_first_rec([a_1],set())
+                firsts[a_1] = first_of_a1
+            else:
+                first_of_a1 = firsts[a_1]
             first = first.union(first_of_a1)
             first.discard(epsilon)
             if(epsilon in first_of_a1): #if epsilong belongs to first(a1)
@@ -49,16 +59,21 @@ def get_first_rec(alpha,first):
             return first
             
 def get_first(alpha):
-    first = set()
-    first = get_first_rec(alpha,first)
+    if alpha in firsts:
+        return firsts[alpha]
+    else:
+        first = set()
+        first = get_first_rec([alpha],first)
     return first
 
 
 
-first_a = get_first(["A"])
-first_b = get_first(["B"])
-first_c = get_first(["C"])
+#first_s = get_first(["S"])
+first_a = get_first("A")
+first_b = get_first("B")
+first_c = get_first("C")
 print("----------------------------------------------------")
+#print("first(S)", first_s)
 print("first(A)", first_a)
 print("first(B)", first_b)
 print("first(C)", first_c)
