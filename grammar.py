@@ -5,7 +5,6 @@ super_stmt = "super_stmt"
 var_def = "var_def"
 func_def = "func_def"
 class_def = "class_def"
-super_stmt ="super_stmt"
 stmt = "stmt"
 class_body = "class_body"
 def_b ="def_b"
@@ -139,7 +138,7 @@ grammar = {
         [simple_stmt, NEWLINE],
         ["if", expr, ":", block, block_elif, block_else],
         ["while", expr, ":",block],
-        ["for", ID, expr, ":", block]
+        ["for", ID, "in", expr, ":", block]
     ],
     block_elif:
     [
@@ -155,16 +154,13 @@ grammar = {
     [
         ["pass"],
         [expr],
-        ["return", after_return]
+        ["return", after_return],
+        [target, "=", targets, expr]
     ],
     after_return:
     [
         [expr],
         []
-    ],
-    simple_stmt:
-    [
-        [target, "=", targets, expr]
     ],
     targets:
     [
