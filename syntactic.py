@@ -1,6 +1,6 @@
 #import grammar made in grammar.py
-from grammar import test_grammar_4 as grammar
-
+from grammar import chocoGrammar as grammar
+from grammar import *
 #obtaining the list of tokens from the lexical analyser
 import pickle
 from token_class import Token
@@ -47,7 +47,9 @@ def get_first_rec(alpha,first):
         else: #string of type a1a2a3.....an, n>1 where a1 is nonterminal
             #print("string of type a1a2a3.....an, n>1 where a1 is nonterminal")
             if(a_1 in symbol_stack):
+                symbol_stack.append(a_1)
                 print("possible left recursion of cicle revolving:", symbol_stack)
+                print("firsts made so far", firsts)
                 exit()
             symbol_stack.append(a_1)
             #add first(a1) - {epislon} to first(alpha)
@@ -76,12 +78,15 @@ def get_first(non_terminal):
 
 
 
-#first_s = get_first("S")
-#first_a = get_first("A")
+'''
+first_s = get_first("S")
+first_a = get_first("A")
 first_b = get_first("B")
 first_c = get_first("C")
 print("----------------------------------------------------")
 #print("first(S)", first_s)
-#print("first(A)", first_a)
+print("first(A)", first_a)
 print("first(B)", first_b)
 print("first(C)", first_c)
+'''
+print(get_first(program))
