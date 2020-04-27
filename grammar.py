@@ -44,6 +44,9 @@ bin_op = "bin_op"
 cexpr_hat = "cexpr_hat"
 cexpr_hat_2 = "cexpr_hat_2"
 
+#empty string
+epsilon = "epsilon"
+
 #the grammar is stored in a dict, each key is a non terminal, 
 # and each list value represents rules for that non terminal
 
@@ -57,12 +60,12 @@ grammar = {
         [var_def, def_a],
         [func_def, def_a],
         [class_def, def_a],
-        []
+        [epsilon]
     ],
     super_stmt:
     [
         [stmt, super_stmt],
-        []
+        [epsilon]
     ],
     class_def:
     [
@@ -86,17 +89,17 @@ grammar = {
     params:
     [
         [typed_var, more_params],
-        []
+        [epsilon]
     ],
     more_params:
     [
         [",", typed_var, more_params],
-        []
+        [epsilon]
     ],
     func_type:
     [
         ["->","type"],
-        []
+        [epsilon]
     ],
     func_body:
     [
@@ -108,7 +111,7 @@ grammar = {
         [nonlocal_decl, more_stmt],
         [var_def, more_stmt],
         [func_def, more_stmt],
-        []
+        [epsilon]
     ],
     more_stmt:
     [
@@ -146,12 +149,12 @@ grammar = {
     block_elif:
     [
         ["elif", expr, ":", block, block_elif],
-        []
+        [epsilon]
     ],
     block_else:
     [
         ["else", ":",block],
-        []
+        [epsilon]
     ],
     simple_stmt:
     [
@@ -163,12 +166,12 @@ grammar = {
     after_return:
     [
         [expr],
-        []
+        [epsilon]
     ],
     targets:
     [
         [target, "=", targets],
-        []
+        [epsilon]
     ],
     block:
     [
@@ -192,7 +195,7 @@ grammar = {
     [
         [logic_op, expr, expr_hat],
         ["if", expr, "else", expr,expr_hat],
-        []
+        [epsilon]
     ],
     logic_op:
     [
@@ -212,7 +215,7 @@ grammar = {
     cexpr_hat:
     [
         [bin_op, cexpr, cexpr_hat],
-        []
+        [epsilon]
     ],
     cexpr_hat_2:
     [
@@ -222,12 +225,12 @@ grammar = {
     more_expr:
     [
         [expr, comma_expr],
-        []
+        [epsilon]
     ],
     comma_expr:
     [
         [",", expr, comma_expr],
-        []
+        [epsilon]
     ],
     bin_op:
     [
