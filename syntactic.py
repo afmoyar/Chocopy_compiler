@@ -42,7 +42,8 @@ def get_first_rec(alpha,first):
                 return firsts[a_1]
             else:
                 for rule in grammar[a_1]:
-                    first = get_first_rec(rule,first)
+                    first_of_rule = get_first_rec(rule,set())
+                    first = first.union(first_of_rule)
                 return first
         else: #string of type a1a2a3.....an, n>1 where a1 is nonterminal
             #print("string of type a1a2a3.....an, n>1 where a1 is nonterminal")
@@ -64,7 +65,7 @@ def get_first_rec(alpha,first):
             if(epsilon in first_of_a1): #if epsilong belongs to first(a1)
                 #print("if epsilong belongs to first(a1)")
                 #add first(a2a3....an)  to first(alpha)
-                first.union(get_first_rec(alpha[1:],first))
+                first = first.union(get_first_rec(alpha[1:],set()))
             return first
 
 #where non_terminal is a string representing a non terminal symbol          
@@ -79,7 +80,7 @@ def get_first(non_terminal):
 
 
 '''
-first_s = get_first("S")
+#first_s = get_first("S")
 first_a = get_first("A")
 first_b = get_first("B")
 first_c = get_first("C")
@@ -89,5 +90,6 @@ print("first(A)", first_a)
 print("first(B)", first_b)
 print("first(C)", first_c)
 '''
+
 for non_terminal in grammar:
     print("first(",non_terminal, "):", get_first(non_terminal))
