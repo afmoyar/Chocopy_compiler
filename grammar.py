@@ -38,13 +38,14 @@ literal = "literal"
 INTEGER = "INTEGER"
 STRING = "STRING"
 expr_hat = "expr_hat"
-member_expr = "member_expr"
-index_expr = "index_expr"
+#member_expr = "member_expr" replaced by cexpre_hat_3
+#index_expr = "index_expr" replaced by cexpre_hat_4
 bin_op = "bin_op"
 cexpr_hat = "cexpr_hat"
 cexpr_hat_2 = "cexpr_hat_2"
 cexpr_hat_3 = "cexpr_hat_3"
 cexpr_hat_4 = "cexpr_hat_4"
+target_hat = "target_hat"
 #empty string
 epsilon = "epsilon"
 
@@ -259,8 +260,12 @@ chocoGrammar = {
     target:
     [
         [ID],
-        [member_expr],
-        [index_expr],
+        [cexpr, target_hat]
+    ],
+    target_hat:
+    [
+        [".", ID],
+        ["[",expr,"]"]
     ]
 }
 
