@@ -89,4 +89,5 @@ print("first(A)", first_a)
 print("first(B)", first_b)
 print("first(C)", first_c)
 '''
-print(get_first(program))
+for non_terminal in grammar:
+    print("first(",non_terminal, "):", get_first(non_terminal))

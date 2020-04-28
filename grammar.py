@@ -43,7 +43,8 @@ index_expr = "index_expr"
 bin_op = "bin_op"
 cexpr_hat = "cexpr_hat"
 cexpr_hat_2 = "cexpr_hat_2"
-
+cexpr_hat_3 = "cexpr_hat_3"
+cexpr_hat_4 = "cexpr_hat_4"
 #empty string
 epsilon = "epsilon"
 
@@ -204,13 +205,11 @@ chocoGrammar = {
     ],
     cexpr:
     [
-        [ID,cexpr_hat_2],
-        [literal, cexpr_hat],
-        ["[", more_expr, "]", cexpr_hat],
-        ["(",expr,")", cexpr_hat],
-        [member_expr, cexpr_hat_2],
-        [index_expr, cexpr_hat],
-        ["-", cexpr, cexpr_hat]
+        [ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4],
+        [literal, cexpr_hat, cexpr_hat_3, cexpr_hat_4],
+        ["[", more_expr, "]", cexpr_hat, cexpr_hat_3, cexpr_hat_4],
+        ["(",expr,")", cexpr_hat, cexpr_hat_3, cexpr_hat_4],
+        ["-", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4]
     ],
     cexpr_hat:
     [
@@ -221,6 +220,16 @@ chocoGrammar = {
     [
         [cexpr_hat],
         ["(",more_expr,")",cexpr_hat]
+    ],
+    cexpr_hat_3:
+    [
+        [".", ID, cexpr_hat_2, cexpr_hat_3],
+        [epsilon]
+    ],
+    cexpr_hat_4:
+    [
+        ["[", expr,"]", cexpr_hat, cexpr_hat_3, cexpr_hat_4],
+        [epsilon]
     ],
     more_expr:
     [
@@ -246,14 +255,6 @@ chocoGrammar = {
         ["<"],
         [">"],
         ["is"]
-    ],
-    member_expr:
-    [
-        [cexpr, ".", ID],
-    ],
-    index_expr:
-    [
-        [cexpr, "[", expr,"]"]
     ],
     target:
     [
