@@ -8,7 +8,7 @@ class_def = "class_def"
 stmt = "stmt"
 class_body = "class_body"
 def_b ="def_b"
-ID = "ID"
+ID = "id"
 params = "params"
 func_type = "func_type"
 NEWLINE = "tk_newline"
@@ -230,6 +230,9 @@ chocoGrammar = {
     cexpr_hat_4:
     [
         ["tk_cor_izq", expr,"tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4],
+        ## testing line
+        ["tk_par_izq", expr,"tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4],
+        ##
         [epsilon]
     ],
     more_expr:
@@ -266,5 +269,10 @@ chocoGrammar = {
     [
         ["tk_punto", ID],
         ["tk_cor_izq",expr,"tk_cor_der"]
+    ],
+    IDSTRING:[
+        ["int"],
+        ["bool"],
+        ["len"]
     ]
 }
