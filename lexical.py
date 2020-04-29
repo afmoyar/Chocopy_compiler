@@ -298,6 +298,7 @@ with open(sys.argv[1], encoding="utf-8",
         lexeme = ""
         state = 1
         i = 0
+        flag = True
         #line = line + "\n"  # used for eof checks
         while i < len(line):
             # print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
@@ -333,6 +334,7 @@ with open(sys.argv[1], encoding="utf-8",
                         state == 39 and prev_state != 38)) and (i != 0):
                     state = 1
             '''
+
             # print("new state: "+str(state))
             # print(state)
             if state == -1:
@@ -348,6 +350,16 @@ with open(sys.argv[1], encoding="utf-8",
                 # exit()
 
             if (state in valid_states):
+                if(i != 0 and  str(valid_states[state]) != "['tk_ident']" and flag == True):
+                  if(line_idents < global_idents ):
+                     dif = global_idents - line_idents
+                     for s in range(0, dif):
+                         print('cicle')
+                         dedent_token = valid_states[43]
+                         add_token(dedent_token, "", row, col)
+                         global_idents = global_idents - 1
+                     flag = False
+                     
                 # if(state == 14 or state == 16 or state == 19 or state == 22 or state == 99 or state == 28 or state == 30
                 #  or state == 31 or state==39):
                 # check 28 and 30
@@ -395,24 +407,17 @@ with open(sys.argv[1], encoding="utf-8",
                     if(state == 39):
                         line_idents = line_idents + 1
                         #print('would insert on ', str(row), str(col))
-                        print('deb ', 'global_idents: ', global_idents, 'line_idents: ', line_idents, str(row), str(col))
+                        #print('deb ', 'global_idents: ', global_idents, 'line_idents: ', line_idents, str(row), str(col))
                         if(line_idents > global_idents):
                             global_idents = global_idents + 1
                             add_token(token, lexeme, row, col)
 
                         else:
-                            print('not inserted', str(row), str(col))
+                            pass
+                            #print('not inserted', str(row), str(col))
 
                     else:
-                        if(line_idents < global_idents):
-                            dif = global_idents - line_idents
-                            for s in range(0, dif):
-                                print('cicle')
-                                dedent_token = valid_states[43]
-                                add_token(dedent_token, "", row, col)
-                                global_idents = global_idents - 1
-
-                        add_token(token, lexeme, row, col)
+                       add_token(token, lexeme, row, col)
                 state = 1
                 lexeme = ""
             elif state == 40:
