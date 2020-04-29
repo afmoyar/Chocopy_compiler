@@ -9,7 +9,7 @@ with open('token.list', 'rb') as token_file:
 
 epsilon = "epsilon"
 #here it goes the first symbol of the grammar
-first_symbol = "A"
+first_symbol = program
 
 def is_terminal(symbol):
     if(symbol in grammar.keys()):
@@ -52,8 +52,8 @@ def get_first_rec(alpha,first):
             if(a_1 in symbol_stack):
                 symbol_stack.append(a_1)
                 print("possible left recursion of cicle revolving:", symbol_stack)
-                print("firsts made so far", firsts)
-                exit()
+                #print("firsts made so far", firsts)
+                #exit()
             symbol_stack.append(a_1)
             #add first(a1) - {epislon} to first(alpha)
             if a_1 not in firsts:
@@ -79,8 +79,14 @@ def get_first(non_terminal):
         first = get_first_rec([non_terminal],first)
     return first
 
+symbol_stack_2 = list()
 #non_terminan is a string a1 whre a1 is non terminal
 def get_next(non_terminal):
+
+    if non_terminal not in symbol_stack_2:
+        symbol_stack_2.append(non_terminal)
+    else: return set()
+
     next = set()
     if non_terminal == first_symbol:
         next.add("$")
@@ -101,11 +107,13 @@ def get_next(non_terminal):
                     if epsilon in first_of_beta:
                         next_of_B = get_next(B)
                         next = next.union(next_of_B)
+
+    symbol_stack_2.pop()
     return next
 
 
 for non_terminal in grammar:
     print("first(",non_terminal, "):", get_first(non_terminal))
-
+print("-------------------------------------------------------")
 for non_terminal in grammar:
     print("next(",non_terminal, "):", get_next(non_terminal))
