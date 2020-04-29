@@ -10,8 +10,8 @@ valid_states = {
     2: ["tk_suma"],  # +
     4: ["tk_mult"],  # *
     5: ["tk_remainder"],  # %
-    6: ["tk_par_izq"],  # )
-    7: ["tk_par_der"],  # (
+    6: ["tk_par_izq"],  # (
+    7: ["tk_par_der"],  # )
     8: ["tk_cor_izq"],  # [
     9: ["tk_cor_der"],  # ]
     10: ["tk_coma"],  # ,
@@ -290,7 +290,9 @@ with open(sys.argv[1], encoding="utf-8",
     prev_ident = 0
     prev_row = 0
     diff_ident = False
+    global_idents = 0
     for line in file:
+        line_idents = 0
         row = row + 1
         col = 0
         lexeme = ""
@@ -306,6 +308,7 @@ with open(sys.argv[1], encoding="utf-8",
             lexeme += line[i]
             prev_state = state
             state = dt(state, line[i])
+            '''
             if(state == 39):
                 ident += 1
                 diff_ident = True
@@ -320,14 +323,16 @@ with open(sys.argv[1], encoding="utf-8",
                 else:
                     prev_row = row
                     ident += 1
-
+            '''
             if(state == 33 or state == 41):
                in_str = in_str + 1
             # spaces and \t only matter if they are at the begining of line
+            '''
             if len(tokens) != 0:
                 if ((state == 36 and str(tokens[-1].token).strip("[]").replace("'", "") != "tk_ident") or (
                         state == 39 and prev_state != 38)) and (i != 0):
                     state = 1
+            '''
             # print("new state: "+str(state))
             # print(state)
             if state == -1:
@@ -346,6 +351,14 @@ with open(sys.argv[1], encoding="utf-8",
                 # if(state == 14 or state == 16 or state == 19 or state == 22 or state == 99 or state == 28 or state == 30
                 #  or state == 31 or state==39):
                 # check 28 and 30
+                '''
+                if(state == 39):
+                    print('!!!!!!!!! '+ str(row), str(col))
+                    token = valid_states[state]
+                    lexeme = ""
+                    add_token(token, lexeme, row, col)
+                    global_idents = global_idents + 1
+                '''
                 if (state == 14 or state == 17 or state == 20 or state == 23 or state == 26 or state == 32):
                     # Return 1 character back
                     i = i - 1
@@ -374,7 +387,32 @@ with open(sys.argv[1], encoding="utf-8",
                 else:
                     token = valid_states[state]
                     lexeme = ""
-                    add_token(token, lexeme, row, col)
+                    '''
+                    if(str(token)   == "['tk_ident']"):
+                        print('would insert on ', str(row), str(col))
+                        global_idents = global_idents + 1
+                    '''
+                    if(state == 39):
+                        line_idents = line_idents + 1
+                        #print('would insert on ', str(row), str(col))
+                        print('deb ', 'global_idents: ', global_idents, 'line_idents: ', line_idents, str(row), str(col))
+                        if(line_idents > global_idents):
+                            global_idents = global_idents + 1
+                            add_token(token, lexeme, row, col)
+
+                        else:
+                            print('not inserted', str(row), str(col))
+
+                    else:
+                        if(line_idents < global_idents):
+                            dif = global_idents - line_idents
+                            for s in range(0, dif):
+                                print('cicle')
+                                dedent_token = valid_states[43]
+                                add_token(dedent_token, "", row, col)
+                                global_idents = global_idents - 1
+
+                        add_token(token, lexeme, row, col)
                 state = 1
                 lexeme = ""
             elif state == 40:
@@ -386,7 +424,8 @@ with open(sys.argv[1], encoding="utf-8",
         if error:
             break
         if line_full_of_idents():
-            delete_line()
+            #delete_line()
+            print('full of idents')
 
 for i in range(len(tokens)):
     try:
