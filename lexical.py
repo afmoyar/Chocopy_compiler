@@ -10,10 +10,10 @@ valid_states = {
     2: ["tk_suma"],  # +
     4: ["tk_mult"],  # *
     5: ["tk_remainder"],  # %
-    6: ["tk_par_izq"],  # (
-    7: ["tk_par_der"],  # )
-    8: ["tk_cor_der"],  # [
-    9: ["tk_cor_izq"],  # ]
+    6: ["tk_par_izq"],  # )
+    7: ["tk_par_der"],  # (
+    8: ["tk_cor_izq"],  # [
+    9: ["tk_cor_der"],  # ]
     10: ["tk_coma"],  # ,
     11: ["tk_dos_puntos"],  # :
     12: ["tk_punto"],  # .
@@ -30,7 +30,9 @@ valid_states = {
     32: ["tk_entero"],  #
     34: ["tk_cadena"],  # "bla"
     14: [""],
-    39: ["tk_ident"]  # \t o 8 espacios
+    39: ["tk_ident"],  # \t o 8 espacios IDENT
+	42: ["tk_newline"], # NEWLINE
+    43: ["tk_dedent"]   # DEDENT
 
 }
 
@@ -40,7 +42,7 @@ def dt(state, char):
     global in_str
     if (state == 1):
         if (char == "\n"):
-            return 1
+            return 42
 
         elif (char == '+'):
             return 2
@@ -115,7 +117,6 @@ def dt(state, char):
 
         elif (char == '\t'):
             return 39
-
         else:
             return -1
 
@@ -285,13 +286,17 @@ row = 0
 with open(sys.argv[1], encoding="utf-8",
           errors="surrogateescape") as file:  # Also works with "ignore" but the printed characters are different
     error = False
+    ident = 0
+    prev_ident = 0
+    prev_row = 0
+    diff_ident = False
     for line in file:
         row = row + 1
         col = 0
         lexeme = ""
         state = 1
         i = 0
-        line = line + "\n"  # used for eof checks
+        #line = line + "\n"  # used for eof checks
         while i < len(line):
             # print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
             if state == 1:
@@ -301,6 +306,21 @@ with open(sys.argv[1], encoding="utf-8",
             lexeme += line[i]
             prev_state = state
             state = dt(state, line[i])
+            if(state == 39):
+                ident += 1
+                diff_ident = True
+                prev_row = row
+
+            if(diff_ident and prev_row != row):
+                if (state != 39):
+                    add_token("tk_dedent", "", row, col)
+                    prev_row = row
+                    ident -= 1
+                    diff_ident = False
+                else:
+                    prev_row = row
+                    ident += 1
+
             if(state == 33 or state == 41):
                in_str = in_str + 1
             # spaces and \t only matter if they are at the begining of line
@@ -384,5 +404,5 @@ for i in range(len(tokens)):
         exit()
 
 with open('token.list', 'wb') as token_file:
- 
+
   pickle.dump(tokens, token_file)
