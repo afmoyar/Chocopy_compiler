@@ -284,6 +284,10 @@ def delete_line():
 ###main
 row = 0
 
+file_object = open(sys.argv[1], 'a')
+file_object.write("\n")
+file_object.close()
+
 with open(sys.argv[1], encoding="utf-8",
           errors="surrogateescape") as file:  # Also works with "ignore" but the printed characters are different
     error = False
@@ -442,6 +446,7 @@ with open(sys.argv[1], encoding="utf-8",
             #delete_line()
             print('full of idents')
 
+add_token("$", "", row +1, col)
 for i in range(len(tokens)):
     try:
         if (tokens[i].lexeme == ""):

@@ -619,7 +619,6 @@ def main():
     global token
     global tokens
     token = next_token()
-    print("current token:",token)
     #print(token)
     program()
     print("\n El analisis sintactico ha finalizado exitosamente")
