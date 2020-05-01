@@ -446,6 +446,16 @@ with open(sys.argv[1], encoding="utf-8",
             #delete_line()
             print('full of idents')
 
+number_of_tokens = len(tokens)
+for i in range(number_of_tokens):
+    try:
+        if(tokens[-1].token==['tk_newline'] and tokens[-2].token==['tk_newline']):
+            tokens.pop(-1)
+        else:
+            break
+    except:
+        pass
+
 add_token("$", "", row +1, col)
 for i in range(len(tokens)):
     try:
