@@ -43,7 +43,7 @@ def dt(state, char):
     if (state == 1):
 
         if (char == "\n"):
-            return 1
+            return 42
 
         elif (char == '+'):
             return 2
@@ -300,9 +300,12 @@ with open(sys.argv[1], encoding="utf-8",
         state = 1
         i = 0
         flag = True
-        line = line + "\n"  # used for eof checks
-        if(row != 1):
+        #line = line[:-1]
+        #line = line + "\n"  # used for eof checks
+        '''
+        if(row != 0):
            add_token('tk_newline', '', row, col)
+        '''
         while i < len(line):
             # print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
             if state == 1:
@@ -328,6 +331,7 @@ with open(sys.argv[1], encoding="utf-8",
                     prev_row = row
                     ident += 1
             '''
+
             if(state == 33 or state == 41):
                in_str = in_str + 1
             # spaces and \t only matter if they are at the begining of line
@@ -374,6 +378,7 @@ with open(sys.argv[1], encoding="utf-8",
                     add_token(token, lexeme, row, col)
                     global_idents = global_idents + 1
                 '''
+
                 if (state == 14 or state == 17 or state == 20 or state == 23 or state == 26 or state == 32):
                     # Return 1 character back
                     i = i - 1
@@ -389,6 +394,7 @@ with open(sys.argv[1], encoding="utf-8",
                     lemexe = lexeme.strip()
                     add_token(token, lexeme, row, col)
 
+
                 elif (state == 14):
                     is_reserved = check_is_reserved(lexeme)
                     if (is_reserved):
@@ -399,6 +405,7 @@ with open(sys.argv[1], encoding="utf-8",
                         # lexeme = lexeme[:-1]
                         token = "id"  # Identifier
                         add_token(token, lexeme, row, col)
+
                 else:
                     token = valid_states[state]
                     lexeme = ""
