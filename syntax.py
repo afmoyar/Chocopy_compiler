@@ -1,7 +1,7 @@
 import sys
 import pickle
 import os
-import synt
+
 import Auxiliary_sets
 from grammar_tks import chocoGrammar as grammar
 
