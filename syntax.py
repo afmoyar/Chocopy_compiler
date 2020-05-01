@@ -16,11 +16,12 @@ predicciones = {}
 
 def next_token():
     global current_pos
+    current_pos = current_pos + 1
     if(current_pos < len(tokens)):
-       current_pos = current_pos + 1
        #print(str(tokens[current_pos].lexeme))
        return str(tokens[current_pos].token).strip("[]").replace("'", "")
     else:
+       current_pos = current_pos -1
        return "EOF"
 
 def match(expected): #funcion de emparejar
@@ -618,6 +619,7 @@ def main():
     global token
     global tokens
     token = next_token()
+    print("current token:",token)
     #print(token)
     program()
     print("\n El analisis sintactico ha finalizado exitosamente")
