@@ -1,4 +1,4 @@
-class Animal(object):
+class Animal(smthing):
     makes_noise:bool = False
 
     def make_noise(self: "Animal") -> object:

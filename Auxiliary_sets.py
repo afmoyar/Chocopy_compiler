@@ -1,7 +1,7 @@
 #import grammar made in grammar.py
 #from grammar import chocoGrammar as grammar
 from grammar_tks import chocoGrammar as grammar
-from grammar import *
+from grammar_tks import *
 #obtaining the list of tokens from the lexical analyser
 import pickle
 from token_class import Token
