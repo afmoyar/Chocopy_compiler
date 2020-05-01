@@ -41,8 +41,9 @@ def dt(state, char):
     # print(char)
     global in_str
     if (state == 1):
+
         if (char == "\n"):
-            return 42
+            return 1
 
         elif (char == '+'):
             return 2
@@ -299,7 +300,9 @@ with open(sys.argv[1], encoding="utf-8",
         state = 1
         i = 0
         flag = True
-        #line = line + "\n"  # used for eof checks
+        line = line + "\n"  # used for eof checks
+        if(row != 1):
+           add_token('tk_newline', '', row, col)
         while i < len(line):
             # print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
             if state == 1:
@@ -359,7 +362,7 @@ with open(sys.argv[1], encoding="utf-8",
                          add_token(dedent_token, "", row, col)
                          global_idents = global_idents - 1
                      flag = False
-                     
+
                 # if(state == 14 or state == 16 or state == 19 or state == 22 or state == 99 or state == 28 or state == 30
                 #  or state == 31 or state==39):
                 # check 28 and 30
