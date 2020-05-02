@@ -234,13 +234,9 @@ def simple_stmt():
     if(token in predicciones["simple_stmt"][0]): 
         token = match("pass") 
     elif(token in predicciones["simple_stmt"][1]): 
-        expr()  
-    elif(token in predicciones["simple_stmt"][2]): 
         token = match("return") 
         after_return()  
-    elif(token in predicciones["simple_stmt"][3]): 
-        target()  
-        token = match("tk_asig") 
+    elif(token in predicciones["simple_stmt"][2]): 
         targets()  
         expr()  
     else: 
@@ -467,9 +463,8 @@ def target_hat():
         token = match("tk_cor_izq") 
         expr()  
         token = match("tk_cor_der") 
-    else: 
+    elif(token not in predicciones["target_hat"][2]): 
         error(predicciones["target_hat"], target_hat) 
-
 def IDSTRING(): 
     global token 
     if(token in predicciones["IDSTRING"][0]): 

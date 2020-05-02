@@ -162,9 +162,8 @@ chocoGrammar = {
     simple_stmt:
     [
         ["pass"],
-        [expr],
         ["return", after_return],
-        [target, "tk_asig", targets, expr]
+        [ targets, expr]
     ],
     after_return:
     [
@@ -269,7 +268,8 @@ chocoGrammar = {
     target_hat:
     [
         ["tk_punto", ID],
-        ["tk_cor_izq",expr,"tk_cor_der"]
+        ["tk_cor_izq",expr,"tk_cor_der"],
+        [epsilon]
     ],
     IDSTRING:[
         ["int"],

@@ -132,8 +132,16 @@ def main():
     get_predictions()
     #print(predictions['target'])
     return predictions
-'''
+
+get_predictions()
+file = open("predictions.txt","w")
+file.truncate(0)
+file.close()
 for non_terminal, list_of_predictions in predictions.items():
     for prediction in list_of_predictions:
-        print("Pred(",non_terminal,")= ",prediction)
-'''
+        file_object = open("predictions.txt", 'a')
+        file_object.write("Pred("+non_terminal+")= "+str(prediction)+"\n")
+        file_object.close()
+        
+        
+
