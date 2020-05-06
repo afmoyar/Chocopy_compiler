@@ -77,13 +77,14 @@ chocoGrammar = {
     class_body:
     [
         ["pass", NEWLINE],
-        [def_b]
+        [var_def,def_b],
+        [func_def,def_b]
     ],
     def_b:
     [
         [var_def,def_b],
         [func_def,def_b],
-
+        [epsilon]
     ],
     func_def:
     [

@@ -86,6 +86,10 @@ def class_body():
         token = match("pass") 
         token = match("tk_newline") 
     elif(token in predicciones["class_body"][1]): 
+        var_def()  
+        def_b()  
+    elif(token in predicciones["class_body"][2]): 
+        func_def()  
         def_b()  
     else: 
         error(predicciones["class_body"], class_body) 
@@ -98,9 +102,8 @@ def def_b():
     elif(token in predicciones["def_b"][1]): 
         func_def()  
         def_b()  
-    else: 
+    elif(token not in predicciones["def_b"][2]): 
         error(predicciones["def_b"], def_b) 
-
 def func_def(): 
     global token 
     if(token in predicciones["func_def"][0]): 
@@ -685,6 +688,7 @@ def IDSTRING():
         token = match("len") 
     else: 
         error(predicciones["IDSTRING"], IDSTRING) 
+
 
 
 ### end methods
