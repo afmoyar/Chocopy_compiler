@@ -53,9 +53,32 @@ def program():
         class_def()  
         program()  
     elif(token in predicciones["program"][3]): 
-        stmt()  
+        simple_stmt()  
+        token = match("tk_newline") 
         super_stmt()  
-    elif(token not in predicciones["program"][4]): 
+    elif(token in predicciones["program"][4]): 
+        token = match("if") 
+        expr()  
+        token = match("tk_dos_puntos") 
+        block()  
+        block_elif()  
+        block_else()  
+        super_stmt()  
+    elif(token in predicciones["program"][5]): 
+        token = match("while") 
+        expr()  
+        token = match("tk_dos_puntos") 
+        block()  
+        super_stmt()  
+    elif(token in predicciones["program"][6]): 
+        token = match("for") 
+        token = match("id") 
+        token = match("in") 
+        expr()  
+        token = match("tk_dos_puntos") 
+        block()  
+        super_stmt()  
+    elif(token not in predicciones["program"][7]): 
         error(predicciones["program"], program) 
 def super_stmt(): 
     global token 

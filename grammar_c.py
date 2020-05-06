@@ -61,7 +61,14 @@ chocoGrammar = {
         [func_def, program],
         [class_def, program],
         #[stmt, super_stmt],
-        [simple_stmt, NEWLINE,super_stmt],
+
+        #[simple_stmt, NEWLINE,super_stmt],
+
+        ["pass",NEWLINE,super_stmt],
+        ["return", after_return,NEWLINE,super_stmt],
+        [ targets, expr,NEWLINE,super_stmt],
+        
+
         ["if", expr, "tk_dos_puntos", block, block_elif, block_else,super_stmt],
         ["while", expr, "tk_dos_puntos",block,super_stmt],
         ["for", ID, "in", expr, "tk_dos_puntos", block,super_stmt],
