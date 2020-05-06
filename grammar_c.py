@@ -49,6 +49,7 @@ cexpr_hat_4 = "cexpr_hat_4"
 target_hat = "target_hat"
 #empty string
 epsilon = "epsilon"
+target_hat_2 = "target_hat_2"
 
 #the grammar is stored in a dict, each key is a non terminal,
 # and each list value represents rules for that non terminal
@@ -295,8 +296,9 @@ chocoGrammar = {
     ],
     target:
     [
-        [ID],
-        [ID, cexpr_hat_2, cexpr_hat_3, cexpr_hat_4, target_hat],
+        [ID,target_hat_2],
+        #[ID],
+        #[ID, cexpr_hat_2, cexpr_hat_3, cexpr_hat_4, target_hat],
         ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat],
         ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat],
         ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat],
@@ -313,6 +315,10 @@ chocoGrammar = {
     [
         ["tk_punto", ID],
         ["tk_cor_izq",expr,"tk_cor_der"],
+    ],
+    target_hat_2:
+    [
+        [cexpr_hat_2, cexpr_hat_3, cexpr_hat_4, target_hat],
         [epsilon]
     ],
     IDSTRING:[
