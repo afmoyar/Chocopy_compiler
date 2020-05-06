@@ -60,7 +60,12 @@ chocoGrammar = {
         #[var_def, program],
         [func_def, program],
         [class_def, program],
-        [stmt, super_stmt],
+        #[stmt, super_stmt],
+        [simple_stmt, NEWLINE,super_stmt],
+        ["if", expr, "tk_dos_puntos", block, block_elif, block_else,super_stmt],
+        ["while", expr, "tk_dos_puntos",block,super_stmt],
+        ["for", ID, "in", expr, "tk_dos_puntos", block,super_stmt],
+
         [epsilon]
     ],
     super_stmt:

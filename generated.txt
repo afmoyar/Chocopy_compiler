@@ -15,10 +15,10 @@ def program():
         class_def()  
         program()  
     elif(token in predicciones["program"][3]): 
+        stmt()  
         super_stmt()  
-    else: 
+    elif(token not in predicciones["program"][4]): 
         error(predicciones["program"], program) 
-
 def super_stmt(): 
     global token 
     if(token in predicciones["super_stmt"][0]): 
