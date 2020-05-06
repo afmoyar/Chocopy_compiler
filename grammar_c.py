@@ -111,10 +111,10 @@ chocoGrammar = {
     ],
     func_start:
     [
-        [global_decl, more_stmt],
-        [nonlocal_decl, more_stmt],
-        [var_def, more_stmt],
-        ["def", ID, "tk_par_izq", params, "tk_par_der", func_type, "tk_dos_puntos", "tk_newline", "tk_ident", func_body, "tk_dedent", more_stmt],
+        [global_decl, func_start],
+        [nonlocal_decl, func_start],
+        [var_def, func_start],
+        ["def", ID, "tk_par_izq", params, "tk_par_der", func_type, "tk_dos_puntos", "tk_newline", "tk_ident", func_body, "tk_dedent", func_start],
         [epsilon]
     ],
     more_stmt:

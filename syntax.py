@@ -155,13 +155,13 @@ def func_start():
     global token 
     if(token in predicciones["func_start"][0]): 
         global_decl()  
-        more_stmt()  
+        func_start()  
     elif(token in predicciones["func_start"][1]): 
         nonlocal_decl()  
-        more_stmt()  
+        func_start()  
     elif(token in predicciones["func_start"][2]): 
         var_def()  
-        more_stmt()  
+        func_start()  
     elif(token in predicciones["func_start"][3]): 
         token = match("def") 
         token = match("id") 
@@ -174,7 +174,7 @@ def func_start():
         token = match("tk_ident") 
         func_body()  
         token = match("tk_dedent") 
-        more_stmt()  
+        func_start()  
     elif(token not in predicciones["func_start"][4]): 
         error(predicciones["func_start"], func_start) 
 def more_stmt(): 
@@ -688,6 +688,8 @@ def IDSTRING():
         token = match("len") 
     else: 
         error(predicciones["IDSTRING"], IDSTRING) 
+
+
 
 
 

@@ -1,2 +1,3 @@
 class myclass (lol) :    
     i: int = 6
+
