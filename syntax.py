@@ -39,7 +39,12 @@ def match(expected): #funcion de emparejar
 def program(): 
     global token 
     if(token in predicciones["program"][0]): 
-        var_def()  
+        token = match("id") 
+        token = match("tk_dos_puntos") 
+        etype()  
+        token = match("tk_asig") 
+        literal()  
+        token = match("tk_newline") 
         program()  
     elif(token in predicciones["program"][1]): 
         func_def()  
@@ -683,6 +688,7 @@ def IDSTRING():
         token = match("len") 
     else: 
         error(predicciones["IDSTRING"], IDSTRING) 
+
 
 ### end methods
 

@@ -60,7 +60,8 @@ chocoGrammar = {
         #[var_def, program],
         [func_def, program],
         [class_def, program],
-        [super_stmt]
+        [stmt, super_stmt],
+        [epsilon]
     ],
     super_stmt:
     [
