@@ -66,7 +66,10 @@ chocoGrammar = {
 
         ["pass",NEWLINE,super_stmt],
         ["return", after_return,NEWLINE,super_stmt],
-        [ targets, expr,NEWLINE,super_stmt],
+        #[ targets, expr,NEWLINE,super_stmt],
+
+        [target, "tk_asig", targets, expr,NEWLINE,super_stmt],
+        #[epsilon]
         
 
         ["if", expr, "tk_dos_puntos", block, block_elif, block_else,super_stmt],
