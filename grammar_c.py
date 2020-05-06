@@ -56,7 +56,8 @@ epsilon = "epsilon"
 chocoGrammar = {
  program:
     [
-        [var_def, program],
+        [ID, "tk_dos_puntos", etype, "tk_asig", literal, "tk_newline",program]
+        #[var_def, program],
         [func_def, program],
         [class_def, program],
         [super_stmt]

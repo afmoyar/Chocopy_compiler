@@ -39,24 +39,19 @@ def match(expected): #funcion de emparejar
 def program(): 
     global token 
     if(token in predicciones["program"][0]): 
-        def_a()  
+        var_def()  
+        program()  
+    elif(token in predicciones["program"][1]): 
+        func_def()  
+        program()  
+    elif(token in predicciones["program"][2]): 
+        class_def()  
+        program()  
+    elif(token in predicciones["program"][3]): 
         super_stmt()  
     else: 
         error(predicciones["program"], program) 
 
-def def_a(): 
-    global token 
-    if(token in predicciones["def_a"][0]): 
-        var_def()  
-        def_a()  
-    elif(token in predicciones["def_a"][1]): 
-        func_def()  
-        def_a()  
-    elif(token in predicciones["def_a"][2]): 
-        class_def()  
-        def_a()  
-    elif(token not in predicciones["def_a"][3]): 
-        error(predicciones["def_a"], def_a) 
 def super_stmt(): 
     global token 
     if(token in predicciones["super_stmt"][0]): 
@@ -688,10 +683,6 @@ def IDSTRING():
         token = match("len") 
     else: 
         error(predicciones["IDSTRING"], IDSTRING) 
-
-
-
-
 
 ### end methods
 
