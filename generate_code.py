@@ -1,4 +1,4 @@
-from grammar_tks import chocoGrammar as grammar
+from grammar_c import chocoGrammar as grammar
 def gen_test():
     #print(grammar["program"])
     for key in grammar:
@@ -80,3 +80,5 @@ def gen():
             f.write('    else: \n')
             f.write('        error(predicciones["'+key+'"], '+key+') \n')
             f.write('\n')
+
+gen()

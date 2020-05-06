@@ -1,12 +1,12 @@
 #import grammar made in grammar.py
 #from grammar import chocoGrammar as grammar
-from grammar_tks import chocoGrammar as grammar
-from grammar_tks import *
+from grammar_c import chocoGrammar as grammar
+from grammar_c import *
 #obtaining the list of tokens from the lexical analyser
 import pickle
 from token_class import Token
-with open('token.list', 'rb') as token_file:
-    tokens = pickle.load(token_file)
+#with open('token.list', 'rb') as token_file:
+ #   tokens = pickle.load(token_file)
 
 epsilon = "epsilon"
 #here it goes the first symbol of the grammar
