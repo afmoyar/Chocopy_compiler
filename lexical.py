@@ -304,6 +304,7 @@ with open(sys.argv[1], encoding="utf-8",
         state = 1
         i = 0
         flag = True
+        stop_reading_indents = False
         #line = line[:-1]
         #line = line + "\n"  # used for eof checks
         '''
@@ -324,7 +325,6 @@ with open(sys.argv[1], encoding="utf-8",
                 ident += 1
                 diff_ident = True
                 prev_row = row
-
             if(diff_ident and prev_row != row):
                 if (state != 39):
                     add_token("tk_dedent", "", row, col)
@@ -365,11 +365,12 @@ with open(sys.argv[1], encoding="utf-8",
                   if(line_idents < global_idents ):
                      dif = global_idents - line_idents
                      for s in range(0, dif):
-                         print('cicle')
+                         #print('cicle')
                          dedent_token = valid_states[43]
                          add_token(dedent_token, "", row, col)
                          global_idents = global_idents - 1
                      flag = False
+
 
                 # if(state == 14 or state == 16 or state == 19 or state == 22 or state == 99 or state == 28 or state == 30
                 #  or state == 31 or state==39):
@@ -382,6 +383,8 @@ with open(sys.argv[1], encoding="utf-8",
                     add_token(token, lexeme, row, col)
                     global_idents = global_idents + 1
                 '''
+                if(state != 39):
+                    stop_reading_indents = True
 
                 if (state == 14 or state == 17 or state == 20 or state == 23 or state == 26 or state == 32):
                     # Return 1 character back
@@ -418,17 +421,21 @@ with open(sys.argv[1], encoding="utf-8",
                         print('would insert on ', str(row), str(col))
                         global_idents = global_idents + 1
                     '''
-                    if(state == 39):
-                        line_idents = line_idents + 1
-                        #print('would insert on ', str(row), str(col))
-                        #print('deb ', 'global_idents: ', global_idents, 'line_idents: ', line_idents, str(row), str(col))
-                        if(line_idents > global_idents):
-                            global_idents = global_idents + 1
-                            add_token(token, lexeme, row, col)
 
+                    if(state == 39):
+                        if(stop_reading_indents == True):
+                           pass
                         else:
-                            pass
-                            #print('not inserted', str(row), str(col))
+                            line_idents = line_idents + 1
+                            #print('would insert on ', str(row), str(col))
+                            #print('deb ', 'global_idents: ', global_idents, 'line_idents: ', line_idents, str(row), str(col))
+                            if(line_idents > global_idents):
+                                global_idents = global_idents + 1
+                                add_token(token, lexeme, row, col)
+
+                            else:
+                                pass
+                                #print('not inserted', str(row), str(col))
 
                     else:
                        add_token(token, lexeme, row, col)
@@ -455,7 +462,7 @@ for i in range(number_of_tokens):
             break
     except:
         pass
-
+            
 add_token("$", "", row +1, col)
 for i in range(len(tokens)):
     try:
