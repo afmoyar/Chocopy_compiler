@@ -54,16 +54,12 @@ epsilon = "epsilon"
 # and each list value represents rules for that non terminal
 
 chocoGrammar = {
-    program:
+ program:
     [
-        [def_a, super_stmt]
-    ],
-    def_a:
-    [
-        [var_def, def_a],
-        [func_def, def_a],
-        [class_def, def_a],
-        [epsilon]
+        [var_def, program],
+        [func_def, program],
+        [class_def, program],
+        [super_stmt]
     ],
     super_stmt:
     [
