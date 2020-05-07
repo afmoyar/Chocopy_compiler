@@ -1,6 +1,7 @@
 #symbols
 etype = 'etype'
 program = "program"
+id_aux = "id_aux"
 def_a = "def_a"
 super_stmt = "super_stmt"
 var_def = "var_def"
@@ -57,7 +58,10 @@ target_hat_2 = "target_hat_2"
 chocoGrammar = {
  program:
     [
-        [ID, "tk_dos_puntos", etype, "tk_asig", literal, "tk_newline",program],
+        [ID,id_aux],
+        #[ID, "tk_dos_puntos", etype, "tk_asig", literal, "tk_newline",program],
+        #[ID,target_hat_2],
+        
         #[var_def, program],
         [func_def, program],
         [class_def, program],
@@ -72,7 +76,7 @@ chocoGrammar = {
         #[target, "tk_asig", targets, expr,NEWLINE,super_stmt],
 
 
-        [ID,target_hat_2],
+        
         ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
         ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
         ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
@@ -91,6 +95,11 @@ chocoGrammar = {
         ["for", ID, "in", expr, "tk_dos_puntos", block,super_stmt],
 
         [epsilon]
+    ],
+    id_aux:
+    [
+        ["tk_dos_puntos", etype, "tk_asig", literal, "tk_newline",program],
+        [target_hat_2],
     ],
     super_stmt:
     [
