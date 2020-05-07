@@ -89,7 +89,10 @@ chocoGrammar = {
         
         
         #[epsilon]
-        [expr,NEWLINE,super_stmt],
+        #[expr,NEWLINE,super_stmt],
+
+        [cexpr, expr_hat,NEWLINE,super_stmt],
+        ["not", expr, expr_hat,NEWLINE,super_stmt],
 
         ["if", expr, "tk_dos_puntos", block, block_elif, block_else,super_stmt],
         ["while", expr, "tk_dos_puntos",block,super_stmt],
@@ -227,8 +230,11 @@ chocoGrammar = {
         ["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
 
 
-        #[epsilon]
-        [expr]
+        #[epsilon] replaced epsilon by expr
+        #[expr]
+
+        [cexpr, expr_hat],
+        ["not", expr, expr_hat]
     ],
     block:
     [

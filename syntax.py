@@ -64,7 +64,6 @@ def program():
         target_hat()  
         token = match("tk_asig") 
         targets()  
-        expr()  
         token = match("tk_newline") 
         super_stmt()  
     elif(token in predicciones["program"][6]): 
@@ -75,7 +74,6 @@ def program():
         target_hat()  
         token = match("tk_asig") 
         targets()  
-        expr()  
         token = match("tk_newline") 
         super_stmt()  
     elif(token in predicciones["program"][7]): 
@@ -86,7 +84,6 @@ def program():
         target_hat()  
         token = match("tk_asig") 
         targets()  
-        expr()  
         token = match("tk_newline") 
         super_stmt()  
     elif(token in predicciones["program"][8]): 
@@ -97,7 +94,6 @@ def program():
         target_hat()  
         token = match("tk_asig") 
         targets()  
-        expr()  
         token = match("tk_newline") 
         super_stmt()  
     elif(token in predicciones["program"][9]): 
@@ -108,7 +104,6 @@ def program():
         target_hat()  
         token = match("tk_asig") 
         targets()  
-        expr()  
         token = match("tk_newline") 
         super_stmt()  
     elif(token in predicciones["program"][10]): 
@@ -119,7 +114,6 @@ def program():
         target_hat()  
         token = match("tk_asig") 
         targets()  
-        expr()  
         token = match("tk_newline") 
         super_stmt()  
     elif(token in predicciones["program"][11]): 
@@ -132,7 +126,6 @@ def program():
         target_hat()  
         token = match("tk_asig") 
         targets()  
-        expr()  
         token = match("tk_newline") 
         super_stmt()  
     elif(token in predicciones["program"][12]): 
@@ -145,7 +138,6 @@ def program():
         target_hat()  
         token = match("tk_asig") 
         targets()  
-        expr()  
         token = match("tk_newline") 
         super_stmt()  
     elif(token in predicciones["program"][13]): 
@@ -157,10 +149,13 @@ def program():
         target_hat()  
         token = match("tk_asig") 
         targets()  
-        expr()  
         token = match("tk_newline") 
         super_stmt()  
     elif(token in predicciones["program"][14]): 
+        expr()  
+        token = match("tk_newline") 
+        super_stmt()  
+    elif(token in predicciones["program"][15]): 
         token = match("if") 
         expr()  
         token = match("tk_dos_puntos") 
@@ -168,13 +163,13 @@ def program():
         block_elif()  
         block_else()  
         super_stmt()  
-    elif(token in predicciones["program"][15]): 
+    elif(token in predicciones["program"][16]): 
         token = match("while") 
         expr()  
         token = match("tk_dos_puntos") 
         block()  
         super_stmt()  
-    elif(token in predicciones["program"][16]): 
+    elif(token in predicciones["program"][17]): 
         token = match("for") 
         token = match("id") 
         token = match("in") 
@@ -182,7 +177,7 @@ def program():
         token = match("tk_dos_puntos") 
         block()  
         super_stmt()  
-    elif(token not in predicciones["program"][17]): 
+    elif(token not in predicciones["program"][18]): 
         error(predicciones["program"], program) 
 def id_aux(): 
     global token 
@@ -197,7 +192,6 @@ def id_aux():
         target_hat_2()  
         token = match("tk_asig") 
         targets()  
-        expr()  
         token = match("tk_newline") 
         super_stmt()  
     else: 
@@ -437,7 +431,6 @@ def simple_stmt():
         after_return()  
     elif(token in predicciones["simple_stmt"][2]): 
         targets()  
-        expr()  
     else: 
         error(predicciones["simple_stmt"], simple_stmt) 
 
@@ -531,8 +524,11 @@ def targets():
         target_hat()  
         token = match("tk_asig") 
         targets()  
-    elif(token not in predicciones["targets"][10]): 
+    elif(token in predicciones["targets"][10]): 
+        expr()  
+    else: 
         error(predicciones["targets"], targets) 
+
 def block(): 
     global token 
     if(token in predicciones["block"][0]): 
