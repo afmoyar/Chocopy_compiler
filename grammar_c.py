@@ -211,7 +211,20 @@ chocoGrammar = {
     ],
     targets:
     [
-        [target, "tk_asig", targets],
+        #[target, "tk_asig", targets],
+
+        [ID,target_hat_2,"tk_asig", targets],
+        ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
+        ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
+        ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
+        ["tk_entero", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
+        [IDSTRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
+        ["tk_cadena", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
+        ["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
+        ["tk_par_izq", expr, "tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
+        ["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets]
+
+
         [epsilon]
     ],
     block:
