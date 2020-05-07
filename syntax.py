@@ -3,7 +3,7 @@ import pickle
 import os
 import Auxiliary_sets
 from grammar_tks import chocoGrammar as grammar
-
+from token_dict import token_list
 from token_class import Token
 with open('token.list', 'rb') as token_file:
     tokens = pickle.load(token_file)
@@ -845,12 +845,25 @@ def IDSTRING():
 
 def error(expected, funct_where):
     global current_pos
-    err_token = tokens[current_pos ]
+    err_token = tokens[current_pos]
     print(funct_where)
-    print('(else) Error on: '+ str(err_token.token) +' Row: '+str(err_token.row) + ', Col: '+str(err_token.col))
-    print('expected: '+str(expected))
+    #print (token_list[err_token.token[0]])
+    expected_token = tokensToList(str(expected))
+    print('<'+str(err_token.row)+","+str(err_token.col)+'>'+' Error sintactico: se encontro: \"'+ token_list[err_token.token[0]]+'\"') 
+    print('se esperaba: '+expected_token)
     exit()
+def tokensToList(tokens):
 
+    tokensList = ''.join([str(elem).strip("{}[]'") for elem in tokens])
+    separatedTokens = str(tokensList).split(", ")
+    tokensList = ""
+    for i in separatedTokens:
+        tokensList += "\""
+        tokensList += str(token_list[str(i)])
+        tokensList += "\", "
+    tokensList += "."
+    tokensList = tokensList.replace(", .",".")
+    return tokensList
 def main():
     global token
     global tokens
