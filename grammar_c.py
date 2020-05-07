@@ -69,7 +69,20 @@ chocoGrammar = {
         ["return", after_return,NEWLINE,super_stmt],
         #[ targets, expr,NEWLINE,super_stmt],
 
-        [target, "tk_asig", targets, expr,NEWLINE,super_stmt],
+        #[target, "tk_asig", targets, expr,NEWLINE,super_stmt],
+
+
+        [ID,target_hat_2],
+        ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
+        ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
+        ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
+        ["tk_entero", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
+        [IDSTRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
+        ["tk_cadena", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
+        ["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
+        ["tk_par_izq", expr, "tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
+        ["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt]
+
         #[epsilon]
         
 
