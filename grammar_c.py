@@ -81,7 +81,7 @@ chocoGrammar = {
         ["tk_cadena", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
         ["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
         ["tk_par_izq", expr, "tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
-        ["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt]
+        ["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets, expr,NEWLINE,super_stmt],
 
         #[epsilon]
         
