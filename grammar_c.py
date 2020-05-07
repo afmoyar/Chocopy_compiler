@@ -51,6 +51,7 @@ target_hat = "target_hat"
 #empty string
 epsilon = "epsilon"
 target_hat_2 = "target_hat_2"
+targets_hat = "targets_hat"
 
 #the grammar is stored in a dict, each key is a non terminal,
 # and each list value represents rules for that non terminal
@@ -61,6 +62,7 @@ chocoGrammar = {
         [ID, id_aux],
         #[ID, "tk_dos_puntos", etype, "tk_asig", literal, "tk_newline",program],
         #[ID,target_hat_2,"tk_asig", targets, expr,NEWLINE,super_stmt],
+        #[ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
 
         #[var_def, program],
         [func_def, program],
@@ -93,7 +95,7 @@ chocoGrammar = {
 
         #[cexpr, expr_hat,NEWLINE,super_stmt],
 
-        [ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
+        #[ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
         ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
         ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
         ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
@@ -119,6 +121,7 @@ chocoGrammar = {
         ["tk_dos_puntos", etype, "tk_asig", literal, "tk_newline",program],
         #[target_hat_2,"tk_asig", targets, expr,NEWLINE,super_stmt],
         [target_hat_2,"tk_asig", targets,NEWLINE,super_stmt]
+        [cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
     ],
     super_stmt:
     [
@@ -230,9 +233,13 @@ chocoGrammar = {
     ],
     targets:
     [
+
+        [ID,targets_hat],
+        
+
         #[target, "tk_asig", targets],
 
-        [ID,target_hat_2,"tk_asig", targets],
+        #[ID,target_hat_2,"tk_asig", targets],
         ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
         ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
         ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
@@ -249,7 +256,7 @@ chocoGrammar = {
 
         #[cexpr, expr_hat],
 
-        [ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat],
+        #[ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat],
         ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
         ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
         ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
@@ -261,6 +268,11 @@ chocoGrammar = {
         ["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
 
         ["not", expr, expr_hat]
+    ],
+    targets_hat:
+    [
+        [target_hat_2,"tk_asig", targets],
+        [cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat]
     ],
     block:
     [
