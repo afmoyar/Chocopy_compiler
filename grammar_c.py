@@ -89,7 +89,7 @@ chocoGrammar = {
         
         
         #[epsilon]
-        [expr,NEWLINE,super_stmt]
+        [expr,NEWLINE,super_stmt],
 
         ["if", expr, "tk_dos_puntos", block, block_elif, block_else,super_stmt],
         ["while", expr, "tk_dos_puntos",block,super_stmt],
