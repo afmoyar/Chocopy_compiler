@@ -129,8 +129,9 @@ chocoGrammar = {
     id_aux:
     [
         ["tk_dos_puntos", etype, "tk_asig", literal, "tk_newline",program],
-        [target_hat_2,"tk_asig", targets,NEWLINE,super_stmt],
-        [cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
+        #[target_hat_2,"tk_asig", targets,NEWLINE,super_stmt],
+        #[cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
+        [targets_hat,NEWLINE,super_stmt]
     ],
     super_stmt:
     [
@@ -290,11 +291,13 @@ chocoGrammar = {
     [
         [target_hat_2,"tk_asig", targets],
         [cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat]
+        
     ],
     targets_hat_2:
     [
         [target_hat, "tk_asig", targets],
         [expr_hat],
+        
     ],
     block:
     [
