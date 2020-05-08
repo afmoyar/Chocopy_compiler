@@ -5,7 +5,6 @@ import pickle
 # print("Hello World")
 tokens = []
 
-
 valid_states = {
     2: ["tk_suma"],  # +
     4: ["tk_mult"],  # *
@@ -368,6 +367,7 @@ with open(sys.argv[1], encoding="utf-8",
                          #print('cicle')
                          dedent_token = valid_states[43]
                          add_token(dedent_token, "", row, col)
+						 
                          global_idents = global_idents - 1
                      flag = False
 
@@ -462,7 +462,11 @@ for i in range(number_of_tokens):
             break
     except:
         pass
-            
+
+if global_idents == 1: #If EOF and global_idents is still 1 -> code is ok and we need to match indents and dedents at EOF
+    row += 1
+    add_token("tk_dedent","",row,col)
+	
 add_token("$", "", row +1, col)
 for i in range(len(tokens)):
     try:

@@ -24,6 +24,10 @@ token_list = {
 	"tk_newline" : "NEWLINE",
     "tk_dedent" : "DEDENT",
     "tk_cadena" : "STRING",
-    "tk_entero" : "INTEGER"
+    "tk_entero" : "INTEGER",
+    "id" : "ID",
+    "def" : "DEF",	
+    "tk_asig" : "ASIG",
+    "$" : "EOF"
 
 }
