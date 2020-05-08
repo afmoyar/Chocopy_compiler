@@ -64,15 +64,15 @@ chocoGrammar = {
         #[ID,target_hat_2,"tk_asig", targets, expr,NEWLINE,super_stmt],
         #[ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
 
-        ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
-        ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
-        ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
-        [INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
-        [IDSTRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
-        [STRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
-        ["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
-        ["tk_par_izq", expr, "tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
-        ["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
+        ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
+        ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
+        ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
+        [INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
+        [IDSTRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
+        [STRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
+        ["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
+        ["tk_par_izq", expr, "tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
+        ["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
 
         #[var_def, program],
         [func_def, program],
@@ -117,7 +117,7 @@ chocoGrammar = {
         #["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
         
         
-        
+
         ["not", expr, expr_hat,NEWLINE,super_stmt],
 
         ["if", expr, "tk_dos_puntos", block, block_elif, block_else,super_stmt],
@@ -129,7 +129,6 @@ chocoGrammar = {
     id_aux:
     [
         ["tk_dos_puntos", etype, "tk_asig", literal, "tk_newline",program],
-        #[target_hat_2,"tk_asig", targets, expr,NEWLINE,super_stmt],
         [target_hat_2,"tk_asig", targets,NEWLINE,super_stmt],
         [cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
     ],
