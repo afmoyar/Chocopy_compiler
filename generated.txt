@@ -135,16 +135,7 @@ def id_aux():
         token = match("tk_newline") 
         program()  
     elif(token in predicciones["id_aux"][1]): 
-        target_hat_2()  
-        token = match("tk_asig") 
-        targets()  
-        token = match("tk_newline") 
-        super_stmt()  
-    elif(token in predicciones["id_aux"][2]): 
-        cexpr_hat_2()  
-        cexpr_hat_3()  
-        cexpr_hat_4()  
-        expr_hat()  
+        targets_hat()  
         token = match("tk_newline") 
         super_stmt()  
     else: 

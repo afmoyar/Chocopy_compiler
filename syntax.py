@@ -173,16 +173,7 @@ def id_aux():
         token = match("tk_newline") 
         program()  
     elif(token in predicciones["id_aux"][1]): 
-        target_hat_2()  
-        token = match("tk_asig") 
-        targets()  
-        token = match("tk_newline") 
-        super_stmt()  
-    elif(token in predicciones["id_aux"][2]): 
-        cexpr_hat_2()  
-        cexpr_hat_3()  
-        cexpr_hat_4()  
-        expr_hat()  
+        targets_hat()  
         token = match("tk_newline") 
         super_stmt()  
     else: 
@@ -951,8 +942,16 @@ def main():
 
 #predicciones = synt.main()
 predicciones = Auxiliary_sets.main()
+
 #print(predicciones['def_a'])
 main()
 
 #print(tokens[0].token)
 #print(tokens[0].lexeme)
+
+#[0]
+#{'tk_suma', 'tk_mult', 'tk_distinto', 'is', 'tk_menos', 'tk_mayor_igual', 'tk_mayor', 'tk_comparacion', 'tk_division', 'tk_menor', 'tk_menor_igual', 'tk_remainder'}
+
+#[1]
+#{'tk_division', 'or', 'tk_mult', 'is', 'tk_distinto', 'tk_remainder', 'if', 'tk_menor', 'tk_comparacion', 'tk_cor_izq', 'tk_newline', 'tk_menor_igual', 'tk_mayor', 'tk_suma', 'tk_punto', 'tk_mayor_igual', 'and', 'tk_menos', 'tk_par_izq'}
+#{'tk_division', 'or', 'tk_mult', 'is', 'tk_distinto', 'tk_dos_puntos', 'tk_remainder', 'if', 'else', 'tk_menor', 'tk_comparacion', 'tk_cor_der', 'tk_cor_izq', 'tk_newline', 'tk_menor_igual', 'tk_mayor', 'tk_coma', 'tk_suma', 'tk_punto', 'tk_par_der', 'tk_mayor_igual', 'and', 'tk_menos', 'tk_par_izq'}
