@@ -53,6 +53,7 @@ epsilon = "epsilon"
 target_hat_2 = "target_hat_2"
 targets_hat = "targets_hat"
 targets_hat_2 = "targets_hat_2"
+targets_hat_3 = "targets_hat_3"
 #the grammar is stored in a dict, each key is a non terminal,
 # and each list value represents rules for that non terminal
 
@@ -289,15 +290,26 @@ chocoGrammar = {
     ],
     targets_hat:
     [
-        [target_hat_2,"tk_asig", targets],
-        [cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat]
-        
+        #[target_hat_2,"tk_asig", targets],
+
+        #[cexpr_hat_2, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
+        ["tk_asig", targets],
+
+
+        #[cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat]
+
+        [cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,targets_hat_3]
     ],
     targets_hat_2:
     [
         [target_hat, "tk_asig", targets],
         [expr_hat],
         
+    ],
+    targets_hat_3:
+    [
+        [target_hat,"tk_asig", targets],
+        [expr_hat]
     ],
     block:
     [
@@ -431,6 +443,7 @@ chocoGrammar = {
     IDSTRING:[
         ["int"],
         ["bool"],
-        ["len"]
+        ["len"],
+        ["print"]
     ]
 }

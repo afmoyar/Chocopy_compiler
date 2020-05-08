@@ -28,6 +28,24 @@ token_list = {
     "id" : "ID",
     "def" : "DEF",	
     "tk_asig" : "ASIG",
-    "$" : "EOF"
+    "$" : "EOF",
+    "len": "len",
+    "bool": "bool",
+    "none": "none",
+    "return": "return",
+    "False" : "False",
+    "if": "if",
+    "int":"int",
+    "pass":"pass",
+    "for" : "for",
+    "while":"while",
+    "not":"not",
+    "True": "True",
+    "print":"print",
+    "is":"is",
+    "and":"and",
+    "else":"else",
+    "or":"or"
+
 
 }

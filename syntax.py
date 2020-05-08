@@ -496,14 +496,13 @@ def targets():
 def targets_hat(): 
     global token 
     if(token in predicciones["targets_hat"][0]): 
-        target_hat_2()  
         token = match("tk_asig") 
         targets()  
     elif(token in predicciones["targets_hat"][1]): 
         cexpr_hat_2()  
         cexpr_hat_3()  
         cexpr_hat_4()  
-        expr_hat()  
+        targets_hat_3()  
     else: 
         error(predicciones["targets_hat"], targets_hat) 
 
@@ -517,6 +516,17 @@ def targets_hat_2():
         expr_hat()  
     else: 
         error(predicciones["targets_hat_2"], targets_hat_2) 
+
+def targets_hat_3(): 
+    global token 
+    if(token in predicciones["targets_hat_3"][0]): 
+        target_hat()  
+        token = match("tk_asig") 
+        targets()  
+    elif(token in predicciones["targets_hat_3"][1]): 
+        expr_hat()  
+    else: 
+        error(predicciones["targets_hat_3"], targets_hat_3) 
 
 def block(): 
     global token 
@@ -900,6 +910,8 @@ def IDSTRING():
         token = match("bool") 
     elif(token in predicciones["IDSTRING"][2]): 
         token = match("len") 
+    elif(token in predicciones["IDSTRING"][3]): 
+        token = match("print") 
     else: 
         error(predicciones["IDSTRING"], IDSTRING) 
 
@@ -912,7 +924,11 @@ def error(expected, funct_where):
     print(funct_where)
     #print (token_list[err_token.token[0]])
     expected_token = tokensToList(str(expected))
-    print('<'+str(err_token.row)+","+str(err_token.col)+'>'+' Error sintactico: se encontro: \"'+ token_list[err_token.token[0]]+'\"') 
+    try:
+        print('<'+str(err_token.row)+","+str(err_token.col)+'>'+' Error sintactico: se encontro: \"'+ token_list[err_token.token[0]]+'\"') 
+    except:
+        print('<'+str(err_token.row)+","+str(err_token.col)+'>'+' Error sintactico: se encontro: \"'+ err_token.token+'\"') 
+    
     print('se esperaba: '+expected_token)
     exit()
 def tokensToList(tokens):
