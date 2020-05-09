@@ -204,7 +204,8 @@ def dt(state, char):
 
     elif (state == 35):  # comment
         if (char == '\n'):  # end of line
-            return 1
+            #return 1
+            return 42 #should return new line
 
         else:
             return 35  # is part of the comment, keep in state 35
@@ -270,6 +271,21 @@ def line_full_of_idents():
     return full_of_idents
 
 
+def handle_blanks():
+    if len(tokens) == 0 or type(tokens[-1]) == type("str"):
+        return False
+    full_of_idents = True
+    last_row = tokens[-1].row
+    for token in reversed(tokens):
+        if token.row != last_row:
+            return full_of_idents
+        else:
+            if str(token.token).strip("[]").replace("'", "") != "tk_ident" and str(token.token).strip("[]").replace("'", "") != "tk_newline":
+                return False
+    return full_of_idents
+
+
+
 def delete_line():
     last_row = tokens[-1].row
     for token in reversed(tokens):
@@ -306,6 +322,9 @@ with open(sys.argv[1], encoding="utf-8",
         stop_reading_indents = False
         #line = line[:-1]
         #line = line + "\n"  # used for eof checks
+        restore_global_indents = global_idents
+        if(line[0] == '#'):
+            flag = False
         '''
         if(row != 0):
            add_token('tk_newline', '', row, col)
@@ -367,7 +386,7 @@ with open(sys.argv[1], encoding="utf-8",
                          #print('cicle')
                          dedent_token = valid_states[43]
                          add_token(dedent_token, "", row, col)
-						 
+
                          global_idents = global_idents - 1
                      flag = False
 
@@ -449,8 +468,9 @@ with open(sys.argv[1], encoding="utf-8",
             #print(error)
         if error:
             break
-        if line_full_of_idents():
-            #delete_line()
+        if handle_blanks():
+            delete_line()
+            global_idents = restore_global_indents
             print('full of idents')
 
 number_of_tokens = len(tokens)
@@ -466,7 +486,7 @@ for i in range(number_of_tokens):
 if global_idents == 1: #If EOF and global_idents is still 1 -> code is ok and we need to match indents and dedents at EOF
     row += 1
     add_token("tk_dedent","",row,col)
-	
+
 add_token("$", "", row +1, col)
 for i in range(len(tokens)):
     try:
