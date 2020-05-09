@@ -44,7 +44,7 @@ def program():
         token = match("id")
         id_aux()
     elif(token in predicciones["program"][1]):
-        token = match("none")
+        token = match("None")
         cexpr_hat()
         cexpr_hat_3()
         cexpr_hat_4()
@@ -430,7 +430,7 @@ def targets():
         token = match("id")
         targets_hat()
     elif(token in predicciones["targets"][1]):
-        token = match("none")
+        token = match("None")
         cexpr_hat()
         cexpr_hat_3()
         cexpr_hat_4()
@@ -543,7 +543,7 @@ def block():
 def literal():
     global token
     if(token in predicciones["literal"][0]):
-        token = match("none")
+        token = match("None")
     elif(token in predicciones["literal"][1]):
         token = match("True")
     elif(token in predicciones["literal"][2]):
@@ -600,7 +600,7 @@ def cexpr():
         cexpr_hat_3()
         cexpr_hat_4()
     elif(token in predicciones["cexpr"][1]):
-        token = match("none")
+        token = match("None")
         cexpr_hat()
         cexpr_hat_3()
         cexpr_hat_4()
@@ -705,7 +705,7 @@ def more_expr():
         expr_hat()
         comma_expr()
     elif(token in predicciones["more_expr"][1]):
-        token = match("none")
+        token = match("None")
         cexpr_hat()
         cexpr_hat_3()
         cexpr_hat_4()
@@ -822,7 +822,7 @@ def target():
         token = match("id")
         target_hat_2()
     elif(token in predicciones["target"][1]):
-        token = match("none")
+        token = match("None")
         cexpr_hat()
         cexpr_hat_3()
         cexpr_hat_4()
@@ -914,8 +914,13 @@ def IDSTRING():
         token = match("len")
     elif(token in predicciones["IDSTRING"][3]):
         token = match("print")
+    elif(token in predicciones["IDSTRING"][4]):
+        token = match("str")
+    elif(token in predicciones["IDSTRING"][5]):
+        token = match("object")
     else:
         error(predicciones["IDSTRING"], IDSTRING)
+
 
 
 ### end methods
@@ -933,6 +938,7 @@ def error(expected, funct_where):
 
     print('se esperaba: '+expected_token)
     exit()
+
 def tokensToList(tokens):
 
     tokensList = ''.join([str(elem).strip("{}[]'") for elem in tokens])
@@ -945,6 +951,8 @@ def tokensToList(tokens):
     tokensList += "."
     tokensList = tokensList.replace(", .",".")
     return tokensList
+
+
 def main():
     global token
     global tokens
