@@ -360,10 +360,10 @@ chocoGrammar = {
     ],
     cexpr_hat_2:
     [
-        [bin_op, cexpr, cexpr_hat],
-        [epsilon]
-        #[cexpr_hat],
-        #["tk_par_izq",more_expr,"tk_par_der",cexpr_hat]
+        #[bin_op, cexpr, cexpr_hat],
+        #[epsilon]
+        [cexpr_hat],
+        ["tk_par_izq",more_expr,"tk_par_der",cexpr_hat]
     ],
     cexpr_hat_3:
     [

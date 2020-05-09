@@ -623,11 +623,15 @@ def cexpr_hat():
 def cexpr_hat_2(): 
     global token 
     if(token in predicciones["cexpr_hat_2"][0]): 
-        bin_op()  
-        cexpr()  
         cexpr_hat()  
-    elif(token not in predicciones["cexpr_hat_2"][1]): 
+    elif(token in predicciones["cexpr_hat_2"][1]): 
+        token = match("tk_par_izq") 
+        more_expr()  
+        token = match("tk_par_der") 
+        cexpr_hat()  
+    else: 
         error(predicciones["cexpr_hat_2"], cexpr_hat_2) 
+
 def cexpr_hat_3(): 
     global token 
     if(token in predicciones["cexpr_hat_3"][0]): 
