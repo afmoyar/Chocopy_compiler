@@ -26,12 +26,13 @@ token_list = {
     "tk_cadena" : "STRING",
     "tk_entero" : "INTEGER",
     "id" : "ID",
-    "def" : "DEF",	
-    "tk_asig" : "ASIG",
+    "def" : "DEF",
+    #"tk_asig" : "ASIG",
     "$" : "EOF",
     "len": "len",
     "bool": "bool",
-    "none": "none",
+    #"none": "none",
+    "None": "None",
     "return": "return",
     "False" : "False",
     "if": "if",
@@ -45,7 +46,10 @@ token_list = {
     "is":"is",
     "and":"and",
     "else":"else",
-    "or":"or"
+    "or":"or",
+    "str":"str",
+    "class":"class",
+    "object": "object"
 
 
 }
