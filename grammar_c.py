@@ -65,7 +65,7 @@ chocoGrammar = {
         #[ID,target_hat_2,"tk_asig", targets, expr,NEWLINE,super_stmt],
         #[ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
 
-        ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
+        ["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
         ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
         ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
         [INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2,NEWLINE,super_stmt],
@@ -90,7 +90,7 @@ chocoGrammar = {
 
 
         #[ID,target_hat_2,"tk_asig", targets, expr,NEWLINE,super_stmt],
-        #["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
+        #["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
         #["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
         #["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
         #[INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
@@ -99,15 +99,15 @@ chocoGrammar = {
         #["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
         #["tk_par_izq", expr, "tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
         #["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
-        
-        
+
+
         #[epsilon]
         #[expr,NEWLINE,super_stmt],
 
         #[cexpr, expr_hat,NEWLINE,super_stmt],
 
         #[ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        #["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
+        #["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
         #["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
         #["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
         #[INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
@@ -116,8 +116,8 @@ chocoGrammar = {
         #["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
         #["tk_par_izq",expr,"tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
         #["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        
-        
+
+
 
         ["not", expr, expr_hat,NEWLINE,super_stmt],
 
@@ -246,7 +246,7 @@ chocoGrammar = {
     [
 
         [ID,targets_hat],
-        ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
+        ["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
         ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
         ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
         [INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4,targets_hat_2],
@@ -259,7 +259,7 @@ chocoGrammar = {
         #[target, "tk_asig", targets],
 
         #[ID,target_hat_2,"tk_asig", targets],
-        #["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
+        #["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
         #["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
         #["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
         #[INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
@@ -276,7 +276,7 @@ chocoGrammar = {
         #[cexpr, expr_hat],
 
         #[ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat],
-        #["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
+        #["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
         #["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
         #["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
         #[INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
@@ -304,7 +304,7 @@ chocoGrammar = {
     [
         [target_hat, "tk_asig", targets],
         [expr_hat],
-        
+
     ],
     targets_hat_3:
     [
@@ -317,7 +317,7 @@ chocoGrammar = {
     ],
     literal:
     [
-        ["none"],
+        ["None"],
         ["True"],
         ["False"],
         [INTEGER],
@@ -343,7 +343,7 @@ chocoGrammar = {
     cexpr:
     [
         [ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4],
-        ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4],
+        ["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4],
         ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4],
         ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4],
         [INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4],
@@ -381,7 +381,7 @@ chocoGrammar = {
     more_expr:
     [
         [ID, cexpr_hat_2, cexpr_hat_3, cexpr_hat_4, expr_hat, comma_expr],
-        ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4, expr_hat, comma_expr],
+        ["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4, expr_hat, comma_expr],
         ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, expr_hat, comma_expr],
         ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, expr_hat, comma_expr],
         ["tk_entero", cexpr_hat, cexpr_hat_3, cexpr_hat_4, expr_hat, comma_expr],
@@ -418,7 +418,7 @@ chocoGrammar = {
         [ID,target_hat_2],
         #[ID],
         #[ID, cexpr_hat_2, cexpr_hat_3, cexpr_hat_4, target_hat],
-        ["none", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat],
+        ["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat],
         ["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat],
         ["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat],
         ["tk_entero", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat],
@@ -444,6 +444,8 @@ chocoGrammar = {
         ["int"],
         ["bool"],
         ["len"],
-        ["print"]
+        ["print"],
+        ["str"],
+        ["object"]
     ]
 }
