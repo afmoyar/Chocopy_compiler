@@ -471,7 +471,7 @@ with open(sys.argv[1], encoding="utf-8",
         if handle_blanks():
             delete_line()
             global_idents = restore_global_indents
-            print('full of idents')
+            #print('full of idents')
 
 number_of_tokens = len(tokens)
 for i in range(number_of_tokens):

@@ -298,11 +298,15 @@ chocoGrammar = {
 
         #[cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat]
 
-        [cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,targets_hat_3]
+        #[cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,targets_hat_2]#removed cexpr_hat_4 because it was giving problems
+        [cexpr_hat_2, cexpr_hat_3,targets_hat_2]
     ],
     targets_hat_2:
     [
-        [target_hat, "tk_asig", targets],
+        #[target_hat, "tk_asig", targets],
+        ["tk_punto", ID,"tk_asig", targets],
+        ["tk_cor_izq",expr,"tk_cor_der","tk_asig", targets],
+        
         [expr_hat],
 
     ],

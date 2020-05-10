@@ -503,18 +503,24 @@ def targets_hat():
     elif(token in predicciones["targets_hat"][1]): 
         cexpr_hat_2()  
         cexpr_hat_3()  
-        cexpr_hat_4()  
-        targets_hat_3()  
+        targets_hat_2()  
     else: 
         error(predicciones["targets_hat"], targets_hat) 
 
 def targets_hat_2(): 
     global token 
     if(token in predicciones["targets_hat_2"][0]): 
-        target_hat()  
+        token = match("tk_punto") 
+        token = match("id") 
         token = match("tk_asig") 
         targets()  
     elif(token in predicciones["targets_hat_2"][1]): 
+        token = match("tk_cor_izq") 
+        expr()  
+        token = match("tk_cor_der") 
+        token = match("tk_asig") 
+        targets()  
+    elif(token in predicciones["targets_hat_2"][2]): 
         expr_hat()  
     else: 
         error(predicciones["targets_hat_2"], targets_hat_2) 

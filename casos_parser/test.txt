@@ -7,10 +7,12 @@ def contains(items:[int], x:int) -> bool:
         i = i + 1
     return False
 
-if contains([4, 8, 15, 16, 23], 15):
+if contains([4, 8, 15, 16, 23]: 15):
   print("Item found!")    # Prints this
 else:
   print("Item not found.")
+
+
 
 
 
