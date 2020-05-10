@@ -1,7 +1,7 @@
 import re
 import sys
 from token_class import Token
-import pickle
+#import pickle
 # print("Hello World")
 tokens = []
 
@@ -295,214 +295,218 @@ def delete_line():
 
 # line = 'class Animal(object):'
 
-
+def main():
 ###main
-row = 0
+    row = 0
 
-file_object = open(sys.argv[1], 'a')
-file_object.write("\n")
-file_object.close()
+    file_object = open(sys.argv[1], 'a')
+    file_object.write("\n")
+    file_object.close()
 
-with open(sys.argv[1], encoding="utf-8",
-          errors="surrogateescape") as file:  # Also works with "ignore" but the printed characters are different
-    error = False
-    ident = 0
-    prev_ident = 0
-    prev_row = 0
-    diff_ident = False
-    global_idents = 0
-    for line in file:
-        line_idents = 0
-        row = row + 1
-        col = 0
-        lexeme = ""
-        state = 1
-        i = 0
-        flag = True
-        stop_reading_indents = False
-        #line = line[:-1]
-        #line = line + "\n"  # used for eof checks
-        restore_global_indents = global_idents
-        if(line[0] == '#'):
-            flag = False
-        '''
-        if(row != 0):
-           add_token('tk_newline', '', row, col)
-        '''
-        while i < len(line):
-            # print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
-            if state == 1:
-                col = i + 1
-                in_str = 0
-            #print(state,'->')
-            lexeme += line[i]
-            prev_state = state
-            state = dt(state, line[i])
+    with open(sys.argv[1], encoding="utf-8",
+              errors="surrogateescape") as file:  # Also works with "ignore" but the printed characters are different
+        error = False
+        ident = 0
+        prev_ident = 0
+        prev_row = 0
+        diff_ident = False
+        global_idents = 0
+        for line in file:
+            line_idents = 0
+            row = row + 1
+            col = 0
+            lexeme = ""
+            state = 1
+            i = 0
+            flag = True
+            stop_reading_indents = False
+            #line = line[:-1]
+            #line = line + "\n"  # used for eof checks
+            restore_global_indents = global_idents
+            if(line[0] == '#'):
+                flag = False
             '''
-            if(state == 39):
-                ident += 1
-                diff_ident = True
-                prev_row = row
-            if(diff_ident and prev_row != row):
-                if (state != 39):
-                    add_token("tk_dedent", "", row, col)
-                    prev_row = row
-                    ident -= 1
-                    diff_ident = False
-                else:
-                    prev_row = row
-                    ident += 1
+            if(row != 0):
+               add_token('tk_newline', '', row, col)
             '''
-
-            if(state == 33 or state == 41):
-               in_str = in_str + 1
-            # spaces and \t only matter if they are at the begining of line
-            '''
-            if len(tokens) != 0:
-                if ((state == 36 and str(tokens[-1].token).strip("[]").replace("'", "") != "tk_ident") or (
-                        state == 39 and prev_state != 38)) and (i != 0):
-                    state = 1
-            '''
-
-            # print("new state: "+str(state))
-            # print(state)
-            if state == -1:
-                # print("Lexical error on line: "+str(row)+" position: "+str(col))
-                tokens.append("Lexical error on line: " + str(row) + " position: " + str(col))
-                error = True
-                # exit()
-
-            if state == -2:
-                # print("Lexical error on line: "+str(row)+" position: "+str(col))
-                tokens.append("Lexical error on line: " + str(row) + " position: " + str(col + in_str))
-                error = True
-                # exit()
-
-            if (state in valid_states):
-                if(i != 0 and  str(valid_states[state]) != "['tk_ident']" and flag == True):
-                  if(line_idents < global_idents ):
-                     dif = global_idents - line_idents
-                     for s in range(0, dif):
-                         #print('cicle')
-                         dedent_token = valid_states[43]
-                         add_token(dedent_token, "", row, col)
-
-                         global_idents = global_idents - 1
-                     flag = False
-
-
-                # if(state == 14 or state == 16 or state == 19 or state == 22 or state == 99 or state == 28 or state == 30
-                #  or state == 31 or state==39):
-                # check 28 and 30
+            while i < len(line):
+                # print("current i:"+ str(i)+" current state: "+str(state)+ " char: "+line[i])
+                if state == 1:
+                    col = i + 1
+                    in_str = 0
+                #print(state,'->')
+                lexeme += line[i]
+                prev_state = state
+                state = dt(state, line[i])
                 '''
                 if(state == 39):
-                    print('!!!!!!!!! '+ str(row), str(col))
-                    token = valid_states[state]
-                    lexeme = ""
-                    add_token(token, lexeme, row, col)
-                    global_idents = global_idents + 1
-                '''
-                if(state != 39):
-                    stop_reading_indents = True
-
-                if (state == 14 or state == 17 or state == 20 or state == 23 or state == 26 or state == 32):
-                    # Return 1 character back
-                    i = i - 1
-                    lexeme = lexeme[:-1].strip()
-
-                if (state == 34):  # string state
-                    token = valid_states[state]
-                    lemexe = lexeme.strip()
-                    add_token(token, lexeme, row, col)
-
-                elif (state == 32):
-                    token = valid_states[state]
-                    lemexe = lexeme.strip()
-                    add_token(token, lexeme, row, col)
-
-
-                elif (state == 14):
-                    is_reserved = check_is_reserved(lexeme)
-                    if (is_reserved):
-                        token = lexeme.strip()
-                        add_token(token, "", row, col)
-
+                    ident += 1
+                    diff_ident = True
+                    prev_row = row
+                if(diff_ident and prev_row != row):
+                    if (state != 39):
+                        add_token("tk_dedent", "", row, col)
+                        prev_row = row
+                        ident -= 1
+                        diff_ident = False
                     else:
-                        # lexeme = lexeme[:-1]
-                        token = "id"  # Identifier
-                        add_token(token, lexeme, row, col)
+                        prev_row = row
+                        ident += 1
+                '''
 
-                else:
-                    token = valid_states[state]
-                    lexeme = ""
+                if(state == 33 or state == 41):
+                   in_str = in_str + 1
+                # spaces and \t only matter if they are at the begining of line
+                '''
+                if len(tokens) != 0:
+                    if ((state == 36 and str(tokens[-1].token).strip("[]").replace("'", "") != "tk_ident") or (
+                            state == 39 and prev_state != 38)) and (i != 0):
+                        state = 1
+                '''
+
+                # print("new state: "+str(state))
+                # print(state)
+                if state == -1:
+                    # print("Lexical error on line: "+str(row)+" position: "+str(col))
+                    tokens.append("Lexical error on line: " + str(row) + " position: " + str(col))
+                    error = True
+                    # exit()
+
+                if state == -2:
+                    # print("Lexical error on line: "+str(row)+" position: "+str(col))
+                    tokens.append("Lexical error on line: " + str(row) + " position: " + str(col + in_str))
+                    error = True
+                    # exit()
+
+                if (state in valid_states):
+                    if(i != 0 and  str(valid_states[state]) != "['tk_ident']" and flag == True):
+                      if(line_idents < global_idents ):
+                         dif = global_idents - line_idents
+                         for s in range(0, dif):
+                             #print('cicle')
+                             dedent_token = valid_states[43]
+                             add_token(dedent_token, "", row, col)
+
+                             global_idents = global_idents - 1
+                         flag = False
+
+
+                    # if(state == 14 or state == 16 or state == 19 or state == 22 or state == 99 or state == 28 or state == 30
+                    #  or state == 31 or state==39):
+                    # check 28 and 30
                     '''
-                    if(str(token)   == "['tk_ident']"):
-                        print('would insert on ', str(row), str(col))
+                    if(state == 39):
+                        print('!!!!!!!!! '+ str(row), str(col))
+                        token = valid_states[state]
+                        lexeme = ""
+                        add_token(token, lexeme, row, col)
                         global_idents = global_idents + 1
                     '''
+                    if(state != 39):
+                        stop_reading_indents = True
 
-                    if(state == 39):
-                        if(stop_reading_indents == True):
-                           pass
+                    if (state == 14 or state == 17 or state == 20 or state == 23 or state == 26 or state == 32):
+                        # Return 1 character back
+                        i = i - 1
+                        lexeme = lexeme[:-1].strip()
+
+                    if (state == 34):  # string state
+                        token = valid_states[state]
+                        lemexe = lexeme.strip()
+                        add_token(token, lexeme, row, col)
+
+                    elif (state == 32):
+                        token = valid_states[state]
+                        lemexe = lexeme.strip()
+                        add_token(token, lexeme, row, col)
+
+
+                    elif (state == 14):
+                        is_reserved = check_is_reserved(lexeme)
+                        if (is_reserved):
+                            token = lexeme.strip()
+                            add_token(token, "", row, col)
+
                         else:
-                            line_idents = line_idents + 1
-                            #print('would insert on ', str(row), str(col))
-                            #print('deb ', 'global_idents: ', global_idents, 'line_idents: ', line_idents, str(row), str(col))
-                            if(line_idents > global_idents):
-                                global_idents = global_idents + 1
-                                add_token(token, lexeme, row, col)
-
-                            else:
-                                pass
-                                #print('not inserted', str(row), str(col))
+                            # lexeme = lexeme[:-1]
+                            token = "id"  # Identifier
+                            add_token(token, lexeme, row, col)
 
                     else:
-                       add_token(token, lexeme, row, col)
-                state = 1
-                lexeme = ""
-            elif state == 40:
-                i = i - 1
-                lexeme = lexeme[:-1]
-                state = 1
-            i = i + 1
-            #print(error)
-        if error:
-            break
-        if handle_blanks():
-            delete_line()
-            global_idents = restore_global_indents
-            #print('full of idents')
+                        token = valid_states[state]
+                        lexeme = ""
+                        '''
+                        if(str(token)   == "['tk_ident']"):
+                            print('would insert on ', str(row), str(col))
+                            global_idents = global_idents + 1
+                        '''
 
-number_of_tokens = len(tokens)
-for i in range(number_of_tokens):
-    try:
-        if(tokens[-1].token==['tk_newline'] and tokens[-2].token==['tk_newline']):
-            tokens.pop(-1)
-        else:
-            break
-    except:
-        pass
+                        if(state == 39):
+                            if(stop_reading_indents == True):
+                               pass
+                            else:
+                                line_idents = line_idents + 1
+                                #print('would insert on ', str(row), str(col))
+                                #print('deb ', 'global_idents: ', global_idents, 'line_idents: ', line_idents, str(row), str(col))
+                                if(line_idents > global_idents):
+                                    global_idents = global_idents + 1
+                                    add_token(token, lexeme, row, col)
 
-if global_idents == 1: #If EOF and global_idents is still 1 -> code is ok and we need to match indents and dedents at EOF
-    row += 1
-    add_token("tk_dedent","",row,col)
+                                else:
+                                    pass
+                                    #print('not inserted', str(row), str(col))
 
-add_token("$", "", row +1, col)
-for i in range(len(tokens)):
-    try:
-        if (tokens[i].lexeme == ""):
-            print("<" + str(tokens[i].token).strip("[]").replace("'", "") + "," + str(tokens[i].row) + "," + str(
-                tokens[i].col) + ">")
-        else:
-            print("<" + str(tokens[i].token).strip("[]").replace("'", "") + "," + str(
-                tokens[i].lexeme).strip() + "," + str(tokens[i].row) + "," + str(tokens[i].col) + ">")
-    except:
-        # print the lexical error
-        print(tokens[i])
-        with open('token.list', 'wb') as token_file:
-            pickle.dump(tokens, token_file)
-        exit()
+                        else:
+                           add_token(token, lexeme, row, col)
+                    state = 1
+                    lexeme = ""
+                elif state == 40:
+                    i = i - 1
+                    lexeme = lexeme[:-1]
+                    state = 1
+                i = i + 1
+                #print(error)
+            if error:
+                break
+            if handle_blanks():
+                delete_line()
+                global_idents = restore_global_indents
+                print('full of idents')
 
-with open('token.list', 'wb') as token_file:
+    number_of_tokens = len(tokens)
+    for i in range(number_of_tokens):
+        try:
+            if(tokens[-1].token==['tk_newline'] and tokens[-2].token==['tk_newline']):
+                tokens.pop(-1)
+            else:
+                break
+        except:
+            pass
 
-  pickle.dump(tokens, token_file)
+    if global_idents == 1: #If EOF and global_idents is still 1 -> code is ok and we need to match indents and dedents at EOF
+        row += 1
+        add_token("tk_dedent","",row,col)
+
+    add_token("$", "", row +1, col)
+    for i in range(len(tokens)):
+        try:
+            if (tokens[i].lexeme == ""):
+                print("<" + str(tokens[i].token).strip("[]").replace("'", "") + "," + str(tokens[i].row) + "," + str(
+                    tokens[i].col) + ">")
+            else:
+                print("<" + str(tokens[i].token).strip("[]").replace("'", "") + "," + str(
+                    tokens[i].lexeme).strip() + "," + str(tokens[i].row) + "," + str(tokens[i].col) + ">")
+        except:
+            # print the lexical error
+            '''
+            print(tokens[i])
+            with open('token.list', 'wb') as token_file:
+                pickle.dump(tokens, token_file)
+            '''
+            exit()
+    return tokens
+    '''
+    with open('token.list', 'wb') as token_file:
+
+      pickle.dump(tokens, token_file)
+    '''
