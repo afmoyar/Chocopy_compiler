@@ -89,36 +89,6 @@ chocoGrammar = {
         #[target, "tk_asig", targets, expr,NEWLINE,super_stmt],
 
 
-        #[ID,target_hat_2,"tk_asig", targets, expr,NEWLINE,super_stmt],
-        #["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
-        #["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
-        #["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
-        #[INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
-        #[IDSTRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
-        #["tk_cadena", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
-        #["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
-        #["tk_par_izq", expr, "tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
-        #["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets,NEWLINE,super_stmt],
-
-
-        #[epsilon]
-        #[expr,NEWLINE,super_stmt],
-
-        #[cexpr, expr_hat,NEWLINE,super_stmt],
-
-        #[ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        #["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        #["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        #["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        #[INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        #[IDSTRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        #[STRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        #["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        #["tk_par_izq",expr,"tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-        #["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
-
-
-
         ["not", expr, expr_hat,NEWLINE,super_stmt],
 
         ["if", expr, "tk_dos_puntos", block, block_elif, block_else,super_stmt],
@@ -130,8 +100,6 @@ chocoGrammar = {
     id_aux:
     [
         ["tk_dos_puntos", etype, "tk_asig", literal, "tk_newline",program],
-        #[target_hat_2,"tk_asig", targets,NEWLINE,super_stmt],
-        #[cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat,NEWLINE,super_stmt],
         [targets_hat,NEWLINE,super_stmt]
     ],
     super_stmt:
@@ -258,33 +226,14 @@ chocoGrammar = {
 
         #[target, "tk_asig", targets],
 
-        #[ID,target_hat_2,"tk_asig", targets],
-        #["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
-        #["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
-        #["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
-        #[INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
-        #[IDSTRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
-        #[STRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
-        #["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
-        #["tk_par_izq", expr, "tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
-        #["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4, target_hat,"tk_asig", targets],
-
+    
 
         #[epsilon] replaced epsilon by expr
         #[expr]
 
         #[cexpr, expr_hat],
 
-        #[ID,cexpr_hat_2, cexpr_hat_3, cexpr_hat_4,expr_hat],
-        #["None", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
-        #["True", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
-        #["False", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
-        #[INTEGER, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
-        #[IDSTRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
-        #[STRING, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
-        #["tk_cor_izq", more_expr, "tk_cor_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
-        #["tk_par_izq", expr, "tk_par_der", cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
-        #["tk_menos", cexpr, cexpr_hat, cexpr_hat_3, cexpr_hat_4,expr_hat],
+       
 
         ["not", expr, expr_hat]
     ],

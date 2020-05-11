@@ -498,8 +498,8 @@ def main():
                     tokens[i].lexeme).strip() + "," + str(tokens[i].row) + "," + str(tokens[i].col) + ">")
         except:
             # print the lexical error
-            '''
             print(tokens[i])
+            '''
             with open('token.list', 'wb') as token_file:
                 pickle.dump(tokens, token_file)
             '''

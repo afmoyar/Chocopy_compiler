@@ -5,10 +5,8 @@ import Auxiliary_sets
 from token_dict import token_list
 from token_class import Token
 import lexical
-'''
-with open('token.list', 'rb') as token_file:
-    tokens = pickle.load(token_file)
-'''
+
+
 tokens = []
 token = ""
 current_pos = -1
@@ -28,7 +26,7 @@ def next_token():
 def match(expected): #funcion de emparejar
     global token
     if(token == expected or token.upper() == expected):
-        print('matched: '+ token)
+        #print('matched: '+ token)
         return next_token()
     else:
         #print('(match) Syntax error. Expected: '+ str(expected) + ' and recieved: '+ str(token))
@@ -938,7 +936,7 @@ def IDSTRING():
 def error(expected, funct_where):
     global current_pos
     err_token = tokens[current_pos]
-    print(funct_where)
+    #print(funct_where)
     #print (token_list[err_token.token[0]])
     expected_token = tokensToList(str(expected))
     try:
@@ -951,13 +949,17 @@ def error(expected, funct_where):
 
 def tokensToList(tokens):
 
+    check_duplicates =set()
     tokensList = ''.join([str(elem).strip("{}[]'") for elem in tokens])
     separatedTokens = str(tokensList).split(", ")
     tokensList = ""
     for i in separatedTokens:
-        tokensList += "\""
-        tokensList += str(token_list[str(i)])
-        tokensList += "\", "
+        if str(token_list[str(i)]) not in check_duplicates:
+            tokensList += "\""
+            tokensList += str(token_list[str(i)])
+            tokensList += "\", "
+            check_duplicates.add(str(token_list[str(i)]))
+
     tokensList += "."
     tokensList = tokensList.replace(", .",".")
     return tokensList
@@ -985,12 +987,3 @@ predicciones = Auxiliary_sets.main()
 #print(predicciones['def_a'])
 main()
 
-#print(tokens[0].token)
-#print(tokens[0].lexeme)
-
-#[0]
-#{'tk_suma', 'tk_mult', 'tk_distinto', 'is', 'tk_menos', 'tk_mayor_igual', 'tk_mayor', 'tk_comparacion', 'tk_division', 'tk_menor', 'tk_menor_igual', 'tk_remainder'}
-
-#[1]
-#{'tk_division', 'or', 'tk_mult', 'is', 'tk_distinto', 'tk_remainder', 'if', 'tk_menor', 'tk_comparacion', 'tk_cor_izq', 'tk_newline', 'tk_menor_igual', 'tk_mayor', 'tk_suma', 'tk_punto', 'tk_mayor_igual', 'and', 'tk_menos', 'tk_par_izq'}
-#{'tk_division', 'or', 'tk_mult', 'is', 'tk_distinto', 'tk_dos_puntos', 'tk_remainder', 'if', 'else', 'tk_menor', 'tk_comparacion', 'tk_cor_der', 'tk_cor_izq', 'tk_newline', 'tk_menor_igual', 'tk_mayor', 'tk_coma', 'tk_suma', 'tk_punto', 'tk_par_der', 'tk_mayor_igual', 'and', 'tk_menos', 'tk_par_izq'}
