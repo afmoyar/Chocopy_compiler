@@ -2,7 +2,6 @@ import sys
 #import pickle
 import os
 import Auxiliary_sets
-from grammar_tks import chocoGrammar as grammar
 from token_dict import token_list
 from token_class import Token
 import lexical
