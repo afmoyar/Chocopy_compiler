@@ -13,17 +13,16 @@ def exp(x: int, y: int) -> int:
 		def geta() -> int:
 			return a
 		if i <= 0:
-			return geta()
+			return geta(hello)
 		else:
 			a = a * x
 			return f(i-1)
-	a = 1
 	return f(y)
 
-class bar(object):
+class bar(pp):
     p: bool = True
 
-    def baz(self:"bar", xx: [int]) -> str:
+    def baz(sel:"bar", xx: [int]) -> str:
         global count
         x:int = 0
         y:int = 1
@@ -40,7 +39,7 @@ class bar(object):
         count = count + 1
 
         while x <= 0:
-            if self.p:
+            if sel.p:
                 xx[0] = xx[1]
                 self.p = not self.p
                 x = x + 1
@@ -54,6 +53,16 @@ print(bar().baz([1,2]))
 while i <= n:
 	print(exp(2, i % 31))
 	i = i + 1
+
+
+
+
+
+
+
+
+
+
 
 
 
